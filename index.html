@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FL Studio Style Music Editor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .toolbar {
+            background: linear-gradient(180deg, #2a2a2a 0%, #1f1f1f 100%);
+            border-bottom: 1px solid #333;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toolbar-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn {
+            background: linear-gradient(180deg, #444 0%, #333 100%);
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 6px 12px;
+            color: #e0e0e0;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(180deg, #555 0%, #444 100%);
+            border-color: #666;
+        }
+
+        .btn:active {
+            background: linear-gradient(180deg, #333 0%, #444 100%);
+        }
+
+        .btn-play {
+            background: linear-gradient(180deg, #4CAF50 0%, #388E3C 100%);
+            border-color: #66BB6A;
+            padding: 8px 16px;
+            font-size: 16px;
+        }
+
+        .btn-play:hover {
+            background: linear-gradient(180deg, #66BB6A 0%, #4CAF50 100%);
+        }
+
+        .btn-stop {
+            background: linear-gradient(180deg, #f44336 0%, #d32f2f 100%);
+            border-color: #ef5350;
+        }
+
+        .btn-stop:hover {
+            background: linear-gradient(180deg, #ef5350 0%, #f44336 100%);
+        }
+
+        .bpm-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bpm-control input {
+            width: 60px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 4px 8px;
+            color: #e0e0e0;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .bpm-control input:focus {
+            outline: none;
+            border-color: #666;
+        }
+
+        .bpm-slider {
+            width: 100px;
+            cursor: pointer;
+        }
+
+        .time-display {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            font-weight: bold;
+            color: #81C784;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .editor-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #1f1f1f;
+            border-right: 1px solid #333;
+        }
+
+        .editor-tabs {
+            display: flex;
+            background: #252525;
+            border-bottom: 1px solid #333;
+        }
+
+        .tab-btn {
+            padding: 8px 20px;
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 14px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            color: #e0e0e0;
+            border-bottom-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .tab-btn:hover {
+            color: #e0e0e0;
+        }
+
+        .editor-container {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .piano-roll {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+
+        .piano-keyboard {
+            width: 80px;
+            background: #252525;
+            border-right: 1px solid #333;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .piano-key {
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 4px;
+            font-size: 10px;
+            color: #888;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+        }
+
+        .piano-key.white {
+            background: #333;
+        }
+
+        .piano-key.black {
+            background: #1a1a1a;
+            color: #aaa;
+        }
+
+        .piano-key.active {
+            background: #4CAF50;
+            color: #fff;
+        }
+
+        .roll-canvas-wrapper {
+            flex: 1;
+            overflow: auto;
+            position: relative;
+        }
+
+        #rollCanvas {
+            display: block;
+            background: #222;
+        }
+
+        .step-sequencer {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            padding: 16px;
+        }
+
+        .sequencer-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sequencer-track {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px;
+            background: #252525;
+            border-radius: 4px;
+        }
+
+        .track-name {
+            width: 80px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #ccc;
+        }
+
+        .track-steps {
+            display: flex;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .step-btn {
+            width: 30px;
+            height: 30px;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .step-btn:hover {
+            background: #444;
+        }
+
+        .step-btn.active {
+            background: #4CAF50;
+            border-color: #66BB6A;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+        }
+
+        .step-btn.playing {
+            background: #FF9800;
+            border-color: #FFB74D;
+        }
+
+        .step-btn.active.playing {
+            background: #FFC107;
+            border-color: #FFD54F;
+            box-shadow: 0 0 12px rgba(255, 193, 7, 0.7);
+        }
+
+        .mixer-panel {
+            width: 280px;
+            background: #222;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #333;
+        }
+
+        .mixer-header {
+            padding: 12px 16px;
+            background: #252525;
+            border-bottom: 1px solid #333;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mixer-toggle {
+            font-size: 20px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .mixer-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .mixer-track {
+            background: #252525;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #333;
+        }
+
+        .mixer-track-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .mixer-track-name {
+            font-size: 13px;
+            font-weight: bold;
+            color: #ccc;
+        }
+
+        .track-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .control-btn {
+            width: 24px;
+            height: 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .btn-mute {
+            background: #555;
+            color: #ccc;
+        }
+
+        .btn-mute.active {
+            background: #f44336;
+            color: #fff;
+        }
+
+        .btn-solo {
+            background: #555;
+            color: #ccc;
+        }
+
+        .btn-solo.active {
+            background: #FF9800;
+            color: #fff;
+        }
+
+        .volume-control {
+            margin-bottom: 12px;
+        }
+
+        .volume-label {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .volume-slider {
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            cursor: pointer;
+            appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #fff;
+        }
+
+        .pan-control {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pan-label {
+            font-size: 11px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .pan-knob {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #555 0%, #333 100%);
+            border: 2px solid #444;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .pan-knob:hover {
+            border-color: #666;
+        }
+
+        .pan-indicator {
+            width: 4px;
+            height: 16px;
+            background: #4CAF50;
+            border-radius: 2px;
+            transform-origin: center;
+        }
+
+        .master-output {
+            background: #2d2d2d;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 12px;
+            border: 1px solid #444;
+        }
+
+        .vu-meters {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        .vu-meter {
+            width: 24px;
+            height: 80px;
+            background: #1a1a1a;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #444;
+        }
+
+        .vu-bar {
+            width: 100%;
+            background: linear-gradient(180deg, #4CAF50 0%, #81C784 100%);
+            position: absolute;
+            bottom: 0;
+            transition: height 0.1s;
+        }
+
+        .vu-bar.clip {
+            background: linear-gradient(180deg, #f44336 0%, #ef5350 100%);
+        }
+
+        .snap-selector {
+            display: flex;
+            gap: 4px;
+        }
+
+        .snap-btn {
+            padding: 4px 8px;
+            font-size: 12px;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .snap-btn.active {
+            background: #4CAF50;
+            color: #fff;
+            border-color: #66BB6A;
+        }
+
+        .waveform-type {
+            display: flex;
+            gap: 4px;
+        }
+
+        .waveform-btn {
+            padding: 4px 8px;
+            font-size: 12px;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .waveform-btn.active {
+            background: #2196F3;
+            color: #fff;
+            border-color: #64B5F6;
+        }
+
+        .project-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .project-btn {
+            padding: 4px 8px;
+            font-size: 12px;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .project-btn:hover {
+            background: #444;
+            color: #e0e0e0;
+        }
+
+        .loop-toggle {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .loop-toggle input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .loop-toggle label {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .canvas-cursor {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            background: #FF9800;
+            pointer-events: none;
+            z-index: 10;
+            box-shadow: 0 0 6px rgba(255, 152, 0, 0.8);
+        }
+
+        .zoom-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .zoom-btn {
+            padding: 4px 8px;
+            font-size: 12px;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .zoom-btn:hover {
+            background: #444;
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="toolbar">
+        <div class="toolbar-left">
+            <div class="project-controls">
+                <button class="project-btn" onclick="app.newProject()">新建</button>
+                <button class="project-btn" onclick="app.saveProject()">保存</button>
+                <button class="project-btn" onclick="app.loadProject()">加载</button>
+                <button class="project-btn" onclick="app.exportAudio()">导出WAV</button>
+            </div>
+        </div>
+        
+        <div class="toolbar-center">
+            <button class="btn btn-stop" onclick="app.stop()">■</button>
+            <button class="btn btn-play" onclick="app.play()">▶</button>
+            
+            <div class="time-display" id="timeDisplay">1:1:00</div>
+            
+            <div class="bpm-control">
+                <span style="font-size: 14px; color: #888;">BPM</span>
+                <input type="number" id="bpmInput" value="120" min="60" max="200" onchange="app.setBPM(this.value)">
+                <input type="range" class="bpm-slider" id="bpmSlider" value="120" min="60" max="200" oninput="app.setBPM(this.value)">
+            </div>
+            
+            <div class="loop-toggle">
+                <input type="checkbox" id="loopToggle" checked onchange="app.setLoop(this.checked)">
+                <label for="loopToggle">循环</label>
+            </div>
+        </div>
+        
+        <div class="toolbar-right">
+            <div class="snap-selector">
+                <button class="snap-btn active" data-snap="4" onclick="app.setSnap(4)">1/4</button>
+                <button class="snap-btn" data-snap="8" onclick="app.setSnap(8)">1/8</button>
+                <button class="snap-btn" data-snap="16" onclick="app.setSnap(16)">1/16</button>
+            </div>
+            <div class="waveform-type">
+                <button class="waveform-btn active" data-wave="triangle" onclick="app.setWaveform('triangle')">三角波</button>
+                <button class="waveform-btn" data-wave="square" onclick="app.setWaveform('square')">方波</button>
+                <button class="waveform-btn" data-wave="sawtooth" onclick="app.setWaveform('sawtooth')">锯齿波</button>
+            </div>
+            <div class="zoom-controls">
+                <button class="zoom-btn" onclick="app.zoomIn()">+</button>
+                <button class="zoom-btn" onclick="app.zoomOut()">-</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="editor-area">
+            <div class="editor-tabs">
+                <button class="tab-btn active" onclick="app.switchView('piano')">钢琴卷帘</button>
+                <button class="tab-btn" onclick="app.switchView('step')">步进音序器</button>
+            </div>
+            <div class="editor-container">
+                <div id="pianoRollView" class="piano-roll">
+                    <div class="piano-keyboard" id="pianoKeyboard"></div>
+                    <div class="roll-canvas-wrapper">
+                        <canvas id="rollCanvas"></canvas>
+                        <div class="canvas-cursor" id="playCursor"></div>
+                    </div>
+                </div>
+                <div id="stepSequencerView" class="step-sequencer" style="display: none;">
+                    <div class="sequencer-grid" id="sequencerGrid"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mixer-panel">
+            <div class="mixer-header">
+                <span>混音器</span>
+                <span class="mixer-toggle" onclick="app.toggleMixer()">◀</span>
+            </div>
+            <div class="mixer-content" id="mixerContent">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class AudioEngine {
+            constructor() {
+                this.audioContext = null;
+                this.masterGain = null;
+                this.tracks = {};
+                this.drumBuffers = {};
+                this.isInitialized = false;
+                this.scheduledNotes = [];
+                this.waveform = 'triangle';
+            }
+
+            init() {
+                if (this.isInitialized) return;
+                this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                this.masterGain = this.audioContext.createGain();
+                this.masterGain.gain.value = 0.8;
+                this.masterGain.connect(this.audioContext.destination);
+                this.isInitialized = true;
+                this.loadDrumSamples();
+            }
+
+            async loadDrumSamples() {
+                const drumConfigs = [
+                    { name: 'kick', freq: 60, duration: 0.5 },
+                    { name: 'snare', freq: 200, duration: 0.2 },
+                    { name: 'hihat', freq: 800, duration: 0.05 },
+                    { name: 'synth', freq: 440, duration: 0.3 }
+                ];
+
+                for (const config of drumConfigs) {
+                    const buffer = await this.generateDrumSample(config);
+                    this.drumBuffers[config.name] = buffer;
+                }
+            }
+
+            async generateDrumSample(config) {
+                const sampleRate = this.audioContext.sampleRate;
+                const duration = config.duration;
+                const bufferSize = sampleRate * duration;
+                const buffer = this.audioContext.createBuffer(1, bufferSize, sampleRate);
+                const data = buffer.getChannelData(0);
+
+                for (let i = 0; i < bufferSize; i++) {
+                    const t = i / sampleRate;
+                    if (config.name === 'kick') {
+                        const freq = config.freq * Math.exp(-t * 15);
+                        data[i] = Math.sin(2 * Math.PI * freq * t) * Math.exp(-t * 10) * 0.8;
+                    } else if (config.name === 'snare') {
+                        const noise = (Math.random() * 2 - 1) * Math.exp(-t * 20);
+                        const tone = Math.sin(2 * Math.PI * config.freq * t) * Math.exp(-t * 8);
+                        data[i] = (noise + tone) * 0.5;
+                    } else if (config.name === 'hihat') {
+                        const noise = (Math.random() * 2 - 1);
+                        data[i] = noise * Math.exp(-t * 50) * 0.6;
+                    } else {
+                        data[i] = Math.sin(2 * Math.PI * config.freq * t) * Math.exp(-t * 3) * 0.5;
+                    }
+                }
+                return buffer;
+            }
+
+            playNote(freq, startTime, duration, trackSettings) {
+                if (!this.isInitialized) return;
+                
+                const osc = this.audioContext.createOscillator();
+                const gainNode = this.audioContext.createGain();
+                const panNode = this.audioContext.createStereoPanner();
+
+                osc.type = this.waveform;
+                osc.frequency.value = freq;
+
+                gainNode.gain.setValueAtTime(0, startTime);
+                gainNode.gain.linearRampToValueAtTime(trackSettings.volume * 0.5, startTime + 0.01);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+                panNode.pan.value = trackSettings.pan;
+
+                osc.connect(gainNode);
+                gainNode.connect(panNode);
+                panNode.connect(this.masterGain);
+
+                osc.start(startTime);
+                osc.stop(startTime + duration);
+
+                this.scheduledNotes.push({ osc, startTime, endTime: startTime + duration });
+            }
+
+            playDrum(drumName, startTime, trackSettings) {
+                if (!this.isInitialized || !this.drumBuffers[drumName]) return;
+
+                const source = this.audioContext.createBufferSource();
+                const gainNode = this.audioContext.createGain();
+                const panNode = this.audioContext.createStereoPanner();
+
+                source.buffer = this.drumBuffers[drumName];
+
+                gainNode.gain.setValueAtTime(trackSettings.volume * 0.8, startTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + source.buffer.duration);
+
+                panNode.pan.value = trackSettings.pan;
+
+                source.connect(gainNode);
+                gainNode.connect(panNode);
+                panNode.connect(this.masterGain);
+
+                source.start(startTime);
+
+                this.scheduledNotes.push({ source, startTime, endTime: startTime + source.buffer.duration });
+            }
+
+            stopAll() {
+                for (const note of this.scheduledNotes) {
+                    try {
+                        if (note.osc) note.osc.stop();
+                        if (note.source) note.source.stop();
+                    } catch (e) {}
+                }
+                this.scheduledNotes = [];
+            }
+
+            getCurrentTime() {
+                return this.audioContext ? this.audioContext.currentTime : 0;
+            }
+
+            resume() {
+                if (this.audioContext && this.audioContext.state === 'suspended') {
+                    this.audioContext.resume();
+                }
+            }
+        }
+
+        class Sequencer {
+            constructor(audioEngine, ui) {
+                this.audioEngine = audioEngine;
+                this.ui = ui;
+                this.isPlaying = false;
+                this.currentStep = 0;
+                this.bpm = 120;
+                this.loop = true;
+                this.scheduleAheadTime = 0.1;
+                this.lookahead = 25;
+                this.nextNoteTime = 0;
+                this.timerID = null;
+                this.totalSteps = 64;
+                this.onStepChange = null;
+            }
+
+            setBPM(bpm) {
+                this.bpm = parseInt(bpm);
+            }
+
+            setLoop(loop) {
+                this.loop = loop;
+            }
+
+            getStepDuration() {
+                return 60 / (this.bpm * 4);
+            }
+
+            start() {
+                if (this.isPlaying) return;
+                this.audioEngine.init();
+                this.audioEngine.resume();
+                this.isPlaying = true;
+                this.nextNoteTime = this.audioEngine.getCurrentTime() + 0.05;
+                this.currentStep = 0;
+                this.scheduler();
+            }
+
+            stop() {
+                this.isPlaying = false;
+                if (this.timerID) {
+                    clearTimeout(this.timerID);
+                    this.timerID = null;
+                }
+                this.audioEngine.stopAll();
+                this.currentStep = 0;
+                if (this.onStepChange) this.onStepChange(0);
+            }
+
+            toggle() {
+                if (this.isPlaying) {
+                    this.stop();
+                } else {
+                    this.start();
+                }
+            }
+
+            scheduler() {
+                while (this.nextNoteTime < this.audioEngine.getCurrentTime() + this.scheduleAheadTime) {
+                    this.scheduleNote(this.currentStep, this.nextNoteTime);
+                    this.nextStep();
+                }
+                if (this.isPlaying) {
+                    this.timerID = setTimeout(() => this.scheduler(), this.lookahead);
+                }
+            }
+
+            scheduleNote(step, time) {
+                const tracks = this.ui.tracks;
+                
+                for (const trackId in tracks) {
+                    const track = tracks[trackId];
+                    if (track.mute) continue;
+                    
+                    const hasSolo = Object.values(tracks).some(t => t.solo);
+                    if (hasSolo && !track.solo) continue;
+
+                    if (track.type === 'step') {
+                        if (track.steps[step % 16]) {
+                            this.audioEngine.playDrum(track.instrument, time, {
+                                volume: track.volume,
+                                pan: track.pan
+                            });
+                        }
+                    }
+                }
+
+                const notes = this.ui.notes;
+                for (const note of notes) {
+                    if (note.startStep === step) {
+                        const track = tracks[note.trackId];
+                        if (!track || track.mute) continue;
+                        
+                        const hasSolo = Object.values(tracks).some(t => t.solo);
+                        if (hasSolo && !track.solo) continue;
+
+                        const freq = this.midiToFreq(note.pitch);
+                        const duration = note.durationSteps * this.getStepDuration();
+                        this.audioEngine.playNote(freq, time, duration, {
+                            volume: track.volume,
+                            pan: track.pan
+                        });
+                    }
+                }
+
+                if (this.onStepChange) this.onStepChange(step);
+            }
+
+            nextStep() {
+                const secondsPerStep = this.getStepDuration();
+                this.nextNoteTime += secondsPerStep;
+                this.currentStep++;
+                
+                if (this.loop && this.currentStep >= this.totalSteps) {
+                    this.currentStep = 0;
+                    this.nextNoteTime = this.audioEngine.getCurrentTime() + 0.05;
+                }
+            }
+
+            midiToFreq(midi) {
+                return 440 * Math.pow(2, (midi - 69) / 12);
+            }
+        }
+
+        class UI {
+            constructor() {
+                this.tracks = {};
+                this.notes = [];
+                this.snap = 16;
+                this.waveform = 'triangle';
+                this.zoom = 40;
+                this.currentView = 'piano';
+                this.canvas = document.getElementById('rollCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.playCursor = document.getElementById('playCursor');
+                this.pianoKeyboard = document.getElementById('pianoKeyboard');
+                this.sequencerGrid = document.getElementById('sequencerGrid');
+                this.mixerContent = document.getElementById('mixerContent');
+                this.timeDisplay = document.getElementById('timeDisplay');
+                this.bpmInput = document.getElementById('bpmInput');
+                this.bpmSlider = document.getElementById('bpmSlider');
+                
+                this.initTracks();
+                this.initPianoKeyboard();
+                this.initCanvas();
+                this.initMixer();
+                this.initSequencerUI();
+                this.bindEvents();
+            }
+
+            initTracks() {
+                this.tracks = {
+                    piano: {
+                        name: '钢琴',
+                        type: 'piano',
+                        volume: 0.7,
+                        pan: 0,
+                        mute: false,
+                        solo: false
+                    },
+                    kick: {
+                        name: '底鼓',
+                        type: 'step',
+                        instrument: 'kick',
+                        steps: new Array(16).fill(false),
+                        volume: 0.8,
+                        pan: 0,
+                        mute: false,
+                        solo: false
+                    },
+                    snare: {
+                        name: '军鼓',
+                        type: 'step',
+                        instrument: 'snare',
+                        steps: new Array(16).fill(false),
+                        volume: 0.7,
+                        pan: 0,
+                        mute: false,
+                        solo: false
+                    },
+                    hihat: {
+                        name: '踩镲',
+                        type: 'step',
+                        instrument: 'hihat',
+                        steps: new Array(16).fill(false),
+                        volume: 0.6,
+                        pan: 0,
+                        mute: false,
+                        solo: false
+                    },
+                    synth: {
+                        name: '合成器',
+                        type: 'step',
+                        instrument: 'synth',
+                        steps: new Array(16).fill(false),
+                        volume: 0.7,
+                        pan: 0,
+                        mute: false,
+                        solo: false
+                    }
+                };
+            }
+
+            initPianoKeyboard() {
+                this.pianoKeyboard.innerHTML = '';
+                const startNote = 48;
+                const endNote = 84;
+                
+                for (let i = endNote; i >= startNote; i--) {
+                    const key = document.createElement('div');
+                    const noteName = this.getNoteName(i);
+                    key.className = `piano-key ${this.isBlackKey(i) ? 'black' : 'white'}`;
+                    key.textContent = noteName;
+                    key.dataset.note = i;
+                    this.pianoKeyboard.appendChild(key);
+                }
+            }
+
+            getNoteName(midi) {
+                const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+                const octave = Math.floor(midi / 12) - 1;
+                return notes[midi % 12] + octave;
+            }
+
+            isBlackKey(midi) {
+                const blackKeys = [1, 3, 6, 8, 10];
+                return blackKeys.includes(midi % 12);
+            }
+
+            initCanvas() {
+                this.resizeCanvas();
+                window.addEventListener('resize', () => this.resizeCanvas());
+                this.drawPianoRoll();
+            }
+
+            resizeCanvas() {
+                const wrapper = this.canvas.parentElement;
+                this.canvas.width = wrapper.clientWidth;
+                this.canvas.height = wrapper.clientHeight;
+                this.drawPianoRoll();
+            }
+
+            drawPianoRoll() {
+                const ctx = this.ctx;
+                const width = this.canvas.width;
+                const height = this.canvas.height;
+                const startNote = 48;
+                const endNote = 84;
+                const noteCount = endNote - startNote + 1;
+                const noteHeight = height / noteCount;
+
+                ctx.fillStyle = '#222';
+                ctx.fillRect(0, 0, width, height);
+
+                for (let step = 0; step < 64; step++) {
+                    const x = step * this.zoom;
+                    if (step % 16 === 0) {
+                        ctx.strokeStyle = '#555';
+                        ctx.lineWidth = 2;
+                    } else if (step % 4 === 0) {
+                        ctx.strokeStyle = '#444';
+                        ctx.lineWidth = 1;
+                    } else {
+                        ctx.strokeStyle = '#333';
+                        ctx.lineWidth = 0.5;
+                    }
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, height);
+                    ctx.stroke();
+                }
+
+                for (let i = 0; i <= noteCount; i++) {
+                    const y = i * noteHeight;
+                    ctx.strokeStyle = '#333';
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(width, y);
+                    ctx.stroke();
+                }
+
+                for (const note of this.notes) {
+                    const noteY = (endNote - note.pitch) * noteHeight;
+                    const noteX = note.startStep * this.zoom;
+                    const noteWidth = note.durationSteps * this.zoom;
+
+                    ctx.fillStyle = '#4CAF50';
+                    ctx.fillRect(noteX, noteY, noteWidth, noteHeight - 1);
+
+                    ctx.fillStyle = '#66BB6A';
+                    ctx.fillRect(noteX, noteY, noteWidth, 3);
+
+                    ctx.fillStyle = '#fff';
+                    ctx.font = '10px Arial';
+                    ctx.fillText(this.getNoteName(note.pitch), noteX + 2, noteY + 12);
+                }
+            }
+
+            initMixer() {
+                this.mixerContent.innerHTML = '';
+                
+                for (const trackId in this.tracks) {
+                    const track = this.tracks[trackId];
+                    const trackEl = document.createElement('div');
+                    trackEl.className = 'mixer-track';
+                    trackEl.innerHTML = `
+                        <div class="mixer-track-header">
+                            <span class="mixer-track-name">${track.name}</span>
+                            <div class="track-controls">
+                                <button class="control-btn btn-mute ${track.mute ? 'active' : ''}" 
+                                    onclick="app.toggleMute('${trackId}')">M</button>
+                                <button class="control-btn btn-solo ${track.solo ? 'active' : ''}" 
+                                    onclick="app.toggleSolo('${trackId}')">S</button>
+                            </div>
+                        </div>
+                        <div class="volume-control">
+                            <div class="volume-label">
+                                <span>音量</span>
+                                <span>${Math.round(track.volume * 100)}%</span>
+                            </div>
+                            <input type="range" class="volume-slider" min="0" max="1" step="0.01" 
+                                value="${track.volume}" 
+                                oninput="app.setTrackVolume('${trackId}', this.value)">
+                        </div>
+                        <div class="pan-control">
+                            <div class="pan-label">声像</div>
+                            <div class="pan-knob" 
+                                style="transform: rotate(${track.pan * 45}deg)"
+                                onmousedown="app.startPanDrag(event, '${trackId}')">
+                                <div class="pan-indicator"></div>
+                            </div>
+                        </div>
+                    `;
+                    this.mixerContent.appendChild(trackEl);
+                }
+
+                const masterEl = document.createElement('div');
+                masterEl.className = 'master-output';
+                masterEl.innerHTML = `
+                    <div style="font-weight: bold; color: #fff; margin-bottom: 8px;">主输出</div>
+                    <div class="vu-meters">
+                        <div class="vu-meter">
+                            <div class="vu-bar" style="height: 0%"></div>
+                        </div>
+                        <div class="vu-meter">
+                            <div class="vu-bar" style="height: 0%"></div>
+                        </div>
+                    </div>
+                `;
+                this.mixerContent.appendChild(masterEl);
+            }
+
+            initSequencerUI() {
+                this.sequencerGrid.innerHTML = '';
+                
+                for (const trackId in this.tracks) {
+                    const track = this.tracks[trackId];
+                    if (track.type !== 'step') continue;
+
+                    const trackEl = document.createElement('div');
+                    trackEl.className = 'sequencer-track';
+                    
+                    const nameEl = document.createElement('div');
+                    nameEl.className = 'track-name';
+                    nameEl.textContent = track.name;
+                    trackEl.appendChild(nameEl);
+
+                    const stepsEl = document.createElement('div');
+                    stepsEl.className = 'track-steps';
+                    
+                    for (let i = 0; i < 16; i++) {
+                        const stepBtn = document.createElement('button');
+                        stepBtn.className = `step-btn ${track.steps[i] ? 'active' : ''}`;
+                        stepBtn.dataset.track = trackId;
+                        stepBtn.dataset.step = i;
+                        stepBtn.onclick = () => this.toggleStep(trackId, i);
+                        stepsEl.appendChild(stepBtn);
+                    }
+                    trackEl.appendChild(stepsEl);
+                    this.sequencerGrid.appendChild(trackEl);
+                }
+            }
+
+            toggleStep(trackId, stepIndex) {
+                this.tracks[trackId].steps[stepIndex] = !this.tracks[trackId].steps[stepIndex];
+                this.initSequencerUI();
+            }
+
+            bindEvents() {
+                let isDragging = false;
+                let isResizing = false;
+                let dragNote = null;
+                let startX, startY;
+                let startStep, startPitch;
+                let startDuration;
+
+                this.canvas.addEventListener('mousedown', (e) => {
+                    const rect = this.canvas.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const clickedNote = this.findNoteAt(x, y);
+                    
+                    if (clickedNote) {
+                        const noteX = clickedNote.startStep * this.zoom;
+                        const noteWidth = clickedNote.durationSteps * this.zoom;
+                        
+                        if (x - noteX < 8) {
+                            isResizing = true;
+                            dragNote = clickedNote;
+                            startX = x;
+                            startDuration = clickedNote.durationSteps;
+                        } else if (noteX + noteWidth - x < 8) {
+                            isResizing = true;
+                            dragNote = clickedNote;
+                            startX = x;
+                            startDuration = clickedNote.durationSteps;
+                        } else {
+                            isDragging = true;
+                            dragNote = clickedNote;
+                            startX = x;
+                            startY = y;
+                            startStep = clickedNote.startStep;
+                            startPitch = clickedNote.pitch;
+                        }
+                    } else {
+                        const step = Math.floor(x / this.zoom);
+                        const noteCount = 37;
+                        const pitch = 84 - Math.floor(y / (this.canvas.height / noteCount));
+                        
+                        if (pitch >= 48 && pitch <= 84 && step >= 0 && step < 64) {
+                            const snappedStep = this.snapStep(step);
+                            const newNote = {
+                                pitch: pitch,
+                                startStep: snappedStep,
+                                durationSteps: this.snap === 16 ? 4 : this.snap === 8 ? 2 : 1,
+                                trackId: 'piano'
+                            };
+                            this.notes.push(newNote);
+                            this.drawPianoRoll();
+                        }
+                    }
+                });
+
+                this.canvas.addEventListener('mousemove', (e) => {
+                    const rect = this.canvas.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    if (isDragging && dragNote) {
+                        const deltaStep = Math.round((x - startX) / this.zoom);
+                        const noteCount = 37;
+                        const deltaPitch = Math.round((startY - y) / (this.canvas.height / noteCount));
+                        
+                        const newStep = Math.max(0, Math.min(63, this.snapStep(startStep + deltaStep)));
+                        const newPitch = Math.max(48, Math.min(84, startPitch + deltaPitch));
+                        
+                        dragNote.startStep = newStep;
+                        dragNote.pitch = newPitch;
+                        this.drawPianoRoll();
+                    } else if (isResizing && dragNote) {
+                        const deltaStep = Math.round((x - startX) / this.zoom);
+                        const newDuration = Math.max(1, startDuration + deltaStep);
+                        dragNote.durationSteps = newDuration;
+                        this.drawPianoRoll();
+                    }
+                });
+
+                this.canvas.addEventListener('mouseup', () => {
+                    isDragging = false;
+                    isResizing = false;
+                    dragNote = null;
+                });
+
+                this.canvas.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    const rect = this.canvas.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const clickedNote = this.findNoteAt(x, y);
+                    if (clickedNote) {
+                        this.notes = this.notes.filter(n => n !== clickedNote);
+                        this.drawPianoRoll();
+                    }
+                });
+            }
+
+            findNoteAt(x, y) {
+                const noteCount = 37;
+                const step = Math.floor(x / this.zoom);
+                const pitch = 84 - Math.floor(y / (this.canvas.height / noteCount));
+                
+                return this.notes.find(n => 
+                    n.startStep <= step && 
+                    n.startStep + n.durationSteps > step &&
+                    n.pitch === pitch
+                );
+            }
+
+            snapStep(step) {
+                const snapValue = 64 / this.snap;
+                return Math.round(step / snapValue) * snapValue;
+            }
+
+            updatePlayPosition(step) {
+                const x = step * this.zoom;
+                this.playCursor.style.left = x + 'px';
+                this.playCursor.style.height = this.canvas.height + 'px';
+                
+                const bars = Math.floor(step / 16) + 1;
+                const beats = Math.floor((step % 16) / 4) + 1;
+                const subBeats = step % 4;
+                this.timeDisplay.textContent = `${bars}:${beats}:${subBeats.toString().padStart(2, '0')}`;
+
+                for (const btn of document.querySelectorAll('.step-btn')) {
+                    btn.classList.remove('playing');
+                }
+                const currentStep = step % 16;
+                document.querySelectorAll(`.step-btn[data-step="${currentStep}"]`).forEach(btn => {
+                    btn.classList.add('playing');
+                });
+
+                document.querySelectorAll('.piano-key').forEach(key => {
+                    key.classList.remove('active');
+                });
+                for (const note of this.notes) {
+                    if (note.startStep <= step && note.startStep + note.durationSteps > step) {
+                        const key = document.querySelector(`.piano-key[data-note="${note.pitch}"]`);
+                        if (key) key.classList.add('active');
+                    }
+                }
+            }
+
+            switchView(view) {
+                this.currentView = view;
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                
+                document.getElementById('pianoRollView').style.display = view === 'piano' ? 'flex' : 'none';
+                document.getElementById('stepSequencerView').style.display = view === 'step' ? 'block' : 'none';
+            }
+
+            zoomIn() {
+                this.zoom = Math.min(100, this.zoom + 10);
+                this.drawPianoRoll();
+            }
+
+            zoomOut() {
+                this.zoom = Math.max(20, this.zoom - 10);
+                this.drawPianoRoll();
+            }
+
+            setSnap(snap) {
+                this.snap = snap;
+                document.querySelectorAll('.snap-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelector(`.snap-btn[data-snap="${snap}"]`).classList.add('active');
+            }
+
+            setWaveform(waveform) {
+                this.waveform = waveform;
+                document.querySelectorAll('.waveform-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelector(`.waveform-btn[data-wave="${waveform}"]`).classList.add('active');
+            }
+        }
+
+        class App {
+            constructor() {
+                this.audioEngine = new AudioEngine();
+                this.ui = new UI();
+                this.sequencer = new Sequencer(this.audioEngine, this.ui);
+                this.sequencer.onStepChange = (step) => this.ui.updatePlayPosition(step);
+            }
+
+            play() {
+                this.sequencer.start();
+            }
+
+            stop() {
+                this.sequencer.stop();
+                this.ui.updatePlayPosition(0);
+            }
+
+            setBPM(bpm) {
+                this.sequencer.setBPM(bpm);
+                document.getElementById('bpmInput').value = bpm;
+                document.getElementById('bpmSlider').value = bpm;
+            }
+
+            setLoop(loop) {
+                this.sequencer.setLoop(loop);
+            }
+
+            setSnap(snap) {
+                this.ui.setSnap(snap);
+            }
+
+            setWaveform(waveform) {
+                this.ui.setWaveform(waveform);
+                this.audioEngine.waveform = waveform;
+            }
+
+            switchView(view) {
+                this.ui.switchView(view);
+            }
+
+            toggleMute(trackId) {
+                this.ui.tracks[trackId].mute = !this.ui.tracks[trackId].mute;
+                this.ui.initMixer();
+            }
+
+            toggleSolo(trackId) {
+                if (this.ui.tracks[trackId].solo) {
+                    this.ui.tracks[trackId].solo = false;
+                } else {
+                    for (const id in this.ui.tracks) {
+                        this.ui.tracks[id].solo = false;
+                    }
+                    this.ui.tracks[trackId].solo = true;
+                }
+                this.ui.initMixer();
+            }
+
+            setTrackVolume(trackId, volume) {
+                this.ui.tracks[trackId].volume = parseFloat(volume);
+                this.ui.initMixer();
+            }
+
+            startPanDrag(e, trackId) {
+                e.preventDefault();
+                const knob = e.target.closest('.pan-knob');
+                const rect = knob.getBoundingClientRect();
+                
+                const updatePan = (ev) => {
+                    const x = ev.clientX - rect.left;
+                    const centerX = rect.width / 2;
+                    const pan = Math.max(-1, Math.min(1, (x - centerX) / centerX));
+                    this.ui.tracks[trackId].pan = pan;
+                    knob.style.transform = `rotate(${pan * 45}deg)`;
+                };
+
+                const stopDrag = () => {
+                    document.removeEventListener('mousemove', updatePan);
+                    document.removeEventListener('mouseup', stopDrag);
+                };
+
+                document.addEventListener('mousemove', updatePan);
+                document.addEventListener('mouseup', stopDrag);
+                updatePan(e);
+            }
+
+            zoomIn() {
+                this.ui.zoomIn();
+            }
+
+            zoomOut() {
+                this.ui.zoomOut();
+            }
+
+            newProject() {
+                this.ui.tracks = {};
+                this.ui.notes = [];
+                this.ui.initTracks();
+                this.ui.initMixer();
+                this.ui.initSequencerUI();
+                this.ui.drawPianoRoll();
+                this.stop();
+            }
+
+            saveProject() {
+                const project = {
+                    tracks: this.ui.tracks,
+                    notes: this.ui.notes,
+                    bpm: this.sequencer.bpm,
+                    loop: this.sequencer.loop,
+                    snap: this.ui.snap,
+                    waveform: this.ui.waveform,
+                    zoom: this.ui.zoom
+                };
+                localStorage.setItem('flStudioProject', JSON.stringify(project));
+                alert('项目已保存');
+            }
+
+            loadProject() {
+                const saved = localStorage.getItem('flStudioProject');
+                if (!saved) {
+                    alert('没有找到保存的项目');
+                    return;
+                }
+                const project = JSON.parse(saved);
+                this.ui.tracks = project.tracks;
+                this.ui.notes = project.notes;
+                this.sequencer.setBPM(project.bpm);
+                this.sequencer.setLoop(project.loop);
+                this.ui.setSnap(project.snap);
+                this.ui.setWaveform(project.waveform);
+                this.ui.zoom = project.zoom;
+                
+                this.setBPM(project.bpm);
+                document.getElementById('loopToggle').checked = project.loop;
+                
+                this.ui.initMixer();
+                this.ui.initSequencerUI();
+                this.ui.drawPianoRoll();
+                this.stop();
+                alert('项目已加载');
+            }
+
+            async exportAudio() {
+                this.stop();
+                this.audioEngine.init();
+                
+                const offlineCtx = new OfflineAudioContext(2, 44100 * 8, 44100);
+                const masterGain = offlineCtx.createGain();
+                masterGain.gain.value = 0.8;
+                masterGain.connect(offlineCtx.destination);
+
+                const drumBuffers = {};
+                for (const name of ['kick', 'snare', 'hihat', 'synth']) {
+                    const buffer = await this.generateDrumSampleOffline(offlineCtx, name);
+                    drumBuffers[name] = buffer;
+                }
+
+                const stepDuration = 60 / (this.sequencer.bpm * 4);
+                const totalDuration = this.sequencer.totalSteps * stepDuration;
+
+                for (const trackId in this.ui.tracks) {
+                    const track = this.ui.tracks[trackId];
+                    if (track.mute) continue;
+
+                    if (track.type === 'step') {
+                        for (let step = 0; step < 16; step++) {
+                            if (track.steps[step]) {
+                                for (let bar = 0; bar < 4; bar++) {
+                                    const startTime = (bar * 16 + step) * stepDuration;
+                                    this.playDrumOffline(offlineCtx, drumBuffers[track.instrument], startTime, track, masterGain);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for (const note of this.ui.notes) {
+                    const track = this.ui.tracks[note.trackId];
+                    if (!track || track.mute) continue;
+
+                    const freq = 440 * Math.pow(2, (note.pitch - 69) / 12);
+                    const startTime = note.startStep * stepDuration;
+                    const duration = note.durationSteps * stepDuration;
+                    this.playNoteOffline(offlineCtx, freq, startTime, duration, track, masterGain);
+                }
+
+                const renderedBuffer = await offlineCtx.startRendering();
+                this.downloadWAV(renderedBuffer);
+            }
+
+            generateDrumSampleOffline(ctx, name) {
+                return new Promise((resolve) => {
+                    const configs = {
+                        kick: { freq: 60, duration: 0.5 },
+                        snare: { freq: 200, duration: 0.2 },
+                        hihat: { freq: 800, duration: 0.05 },
+                        synth: { freq: 440, duration: 0.3 }
+                    };
+                    const config = configs[name];
+                    const sampleRate = ctx.sampleRate;
+                    const duration = config.duration;
+                    const bufferSize = sampleRate * duration;
+                    const buffer = ctx.createBuffer(1, bufferSize, sampleRate);
+                    const data = buffer.getChannelData(0);
+
+                    for (let i = 0; i < bufferSize; i++) {
+                        const t = i / sampleRate;
+                        if (name === 'kick') {
+                            const freq = config.freq * Math.exp(-t * 15);
+                            data[i] = Math.sin(2 * Math.PI * freq * t) * Math.exp(-t * 10) * 0.8;
+                        } else if (name === 'snare') {
+                            const noise = (Math.random() * 2 - 1) * Math.exp(-t * 20);
+                            const tone = Math.sin(2 * Math.PI * config.freq * t) * Math.exp(-t * 8);
+                            data[i] = (noise + tone) * 0.5;
+                        } else if (name === 'hihat') {
+                            const noise = (Math.random() * 2 - 1);
+                            data[i] = noise * Math.exp(-t * 50) * 0.6;
+                        } else {
+                            data[i] = Math.sin(2 * Math.PI * config.freq * t) * Math.exp(-t * 3) * 0.5;
+                        }
+                    }
+                    resolve(buffer);
+                });
+            }
+
+            playDrumOffline(ctx, buffer, startTime, track, masterGain) {
+                const source = ctx.createBufferSource();
+                const gainNode = ctx.createGain();
+                const panNode = ctx.createStereoPanner();
+
+                source.buffer = buffer;
+                gainNode.gain.setValueAtTime(track.volume * 0.8, startTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + buffer.duration);
+                panNode.pan.value = track.pan;
+
+                source.connect(gainNode);
+                gainNode.connect(panNode);
+                panNode.connect(masterGain);
+                source.start(startTime);
+            }
+
+            playNoteOffline(ctx, freq, startTime, duration, track, masterGain) {
+                const osc = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+                const panNode = ctx.createStereoPanner();
+
+                osc.type = this.ui.waveform;
+                osc.frequency.value = freq;
+
+                gainNode.gain.setValueAtTime(0, startTime);
+                gainNode.gain.linearRampToValueAtTime(track.volume * 0.5, startTime + 0.01);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+                panNode.pan.value = track.pan;
+
+                osc.connect(gainNode);
+                gainNode.connect(panNode);
+                panNode.connect(masterGain);
+
+                osc.start(startTime);
+                osc.stop(startTime + duration);
+            }
+
+            downloadWAV(buffer) {
+                const sampleRate = buffer.sampleRate;
+                const channels = buffer.numberOfChannels;
+                const length = buffer.length * channels;
+                const wav = new ArrayBuffer(44 + length * 2);
+                const view = new DataView(wav);
+
+                const writeString = (offset, string) => {
+                    for (let i = 0; i < string.length; i++) {
+                        view.setUint8(offset + i, string.charCodeAt(i));
+                    }
+                };
+
+                writeString(0, 'RIFF');
+                view.setUint32(4, 36 + length * 2, true);
+                writeString(8, 'WAVE');
+                writeString(12, 'fmt ');
+                view.setUint32(16, 16, true);
+                view.setUint16(20, 1, true);
+                view.setUint16(22, channels, true);
+                view.setUint32(24, sampleRate, true);
+                view.setUint32(28, sampleRate * 2 * channels, true);
+                view.setUint16(32, channels * 2, true);
+                view.setUint16(34, 16, true);
+                writeString(36, 'data');
+                view.setUint32(40, length * 2, true);
+
+                let offset = 44;
+                for (let i = 0; i < buffer.length; i++) {
+                    for (let c = 0; c < channels; c++) {
+                        const sample = Math.max(-1, Math.min(1, buffer.getChannelData(c)[i]));
+                        view.setInt16(offset, sample * 32767, true);
+                        offset += 2;
+                    }
+                }
+
+                const blob = new Blob([wav], { type: 'audio/wav' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `fl-studio-project-${Date.now()}.wav`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            toggleMixer() {
+                const mixer = document.querySelector('.mixer-panel');
+                if (mixer.style.width === '0px' || mixer.style.width === '') {
+                    mixer.style.width = '280px';
+                } else {
+                    mixer.style.width = '0px';
+                }
+            }
+        }
+
+        const app = new App();
+    </script>
+</body>
+</html>
