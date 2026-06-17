@@ -3,6 +3,7 @@
 
 #include "utils/AudioBuffer.h"
 #include <QString>
+#include <QStringList>
 #include <map>
 #include <memory>
 

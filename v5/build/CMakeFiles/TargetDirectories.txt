@@ -1,0 +1,9 @@
+/workspace/v5/build/CMakeFiles/FLStudioEditor.dir
+/workspace/v5/build/CMakeFiles/edit_cache.dir
+/workspace/v5/build/CMakeFiles/rebuild_cache.dir
+/workspace/v5/build/CMakeFiles/list_install_components.dir
+/workspace/v5/build/CMakeFiles/install.dir
+/workspace/v5/build/CMakeFiles/install/local.dir
+/workspace/v5/build/CMakeFiles/install/strip.dir
+/workspace/v5/build/CMakeFiles/FLStudioEditor_autogen_timestamp_deps.dir
+/workspace/v5/build/CMakeFiles/FLStudioEditor_autogen.dir

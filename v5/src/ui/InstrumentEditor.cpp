@@ -20,6 +20,7 @@ InstrumentEditor::InstrumentEditor(audio::Synthesizer* synth, QWidget* parent)
 
     setupUI();
     updateInstrumentList();
+    updateEditorFields();
 }
 
 InstrumentEditor::~InstrumentEditor() = default;

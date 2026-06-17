@@ -101,7 +101,8 @@ void MainWindow::setupUI() {
     rightLayout->addWidget(m_mixer);
 
     m_mainSplitter->addWidget(rightPanel);
-    m_mainSplitter->setSizes({900, 500});
+    rightPanel->setMinimumWidth(320);
+    m_mainSplitter->setSizes({900, 400});
 
     mainLayout->addWidget(m_mainSplitter);
 }
@@ -120,14 +121,24 @@ void MainWindow::setupMenuBar() {
     fileMenu->addSeparator();
     fileMenu->addAction("退出", this, &QWidget::close, QKeySequence::Quit);
 
-    // Edit menu
+    // Edit menu (placeholder items - not yet implemented)
     QMenu* editMenu = menuBar->addMenu("编辑");
-    editMenu->addAction("撤销", this, nullptr, QKeySequence::Undo);
-    editMenu->addAction("重做", this, nullptr, QKeySequence::Redo);
+    QAction* undoAction = editMenu->addAction("撤销");
+    undoAction->setEnabled(false);
+    undoAction->setShortcut(QKeySequence::Undo);
+    QAction* redoAction = editMenu->addAction("重做");
+    redoAction->setEnabled(false);
+    redoAction->setShortcut(QKeySequence::Redo);
     editMenu->addSeparator();
-    editMenu->addAction("剪切", this, nullptr, QKeySequence::Cut);
-    editMenu->addAction("复制", this, nullptr, QKeySequence::Copy);
-    editMenu->addAction("粘贴", this, nullptr, QKeySequence::Paste);
+    QAction* cutAction = editMenu->addAction("剪切");
+    cutAction->setEnabled(false);
+    cutAction->setShortcut(QKeySequence::Cut);
+    QAction* copyAction = editMenu->addAction("复制");
+    copyAction->setEnabled(false);
+    copyAction->setShortcut(QKeySequence::Copy);
+    QAction* pasteAction = editMenu->addAction("粘贴");
+    pasteAction->setEnabled(false);
+    pasteAction->setShortcut(QKeySequence::Paste);
 
     // View menu
     QMenu* viewMenu = menuBar->addMenu("视图");

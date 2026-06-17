@@ -67,6 +67,9 @@ private:
 
     // Render one step
     void renderStep(int step, utils::AudioBuffer& output, int startSample);
+
+    // Render current step for real-time playback
+    void renderCurrentStep(utils::AudioBuffer& output);
 };
 
 } // namespace audio

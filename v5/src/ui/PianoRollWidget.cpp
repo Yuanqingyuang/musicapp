@@ -47,6 +47,16 @@ void PianoRollWidget::setZoom(int zoom) {
     update();
 }
 
+void PianoRollWidget::zoomIn() {
+    m_zoom = std::min(200, m_zoom + 5);
+    update();
+}
+
+void PianoRollWidget::zoomOut() {
+    m_zoom = std::max(10, m_zoom - 5);
+    update();
+}
+
 void PianoRollWidget::setCurrentInstrument(int instrumentId) {
     m_currentInstrumentId = instrumentId;
 }

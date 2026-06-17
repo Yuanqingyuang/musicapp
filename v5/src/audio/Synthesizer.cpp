@@ -37,7 +37,7 @@ void Synthesizer::initDefaultInstruments() {
     synth.waveform = "sawtooth";
     synth.adsr = ADSR(0.05f, 0.2f, 0.6f, 0.4f);
     synth.filter = FilterSettings("lowpass", 2000.0f, 5.0f);
-    synth.detune = 5.0f;
+    synth.detunes = {5.0f};
     synth.color = "#2196F3";
     addInstrument(synth);
 
@@ -194,7 +194,8 @@ void Synthesizer::renderSubtractive(const Instrument& inst, float frequency, flo
     
     float phase1 = 0.0f;
     float phase2 = 0.0f;
-    float detunedFreq = frequency * (1.0f + inst.detune / 1000.0f);
+    float detuneVal = inst.detunes.empty() ? 0.0f : inst.detunes[0];
+    float detunedFreq = frequency * (1.0f + detuneVal / 1000.0f);
     float filterState = 0.0f;
     
     for (int i = startSample; i < endSample; ++i) {

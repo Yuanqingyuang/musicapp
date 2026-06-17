@@ -33,6 +33,10 @@ public:
     void setCurrentInstrument(int instrumentId);
     void updatePlayPosition(int step);
 
+public slots:
+    void zoomIn();
+    void zoomOut();
+
 signals:
     void noteAdded(const core::Note& note);
     void noteRemoved(int index);

@@ -123,16 +123,17 @@ void TransportWidget::setupUI() {
     m_loopCheckBox = new QCheckBox(this);
     m_loopCheckBox->setChecked(true);
     m_loopCheckBox->setStyleSheet(
-        "QCheckBox::indicator {"
-        "width: 18px;"
-        "height: 18px;"
+        "QCheckBox { color: #E0E0E0; font-size: 12px; }"
+        "QCheckBox::indicator { width: 16px; height: 16px; }"
+        "QCheckBox::indicator:unchecked {"
+        "background: #555;"
+        "border: 1px solid #777;"
         "}"
         "QCheckBox::indicator:checked {"
         "background: #4CAF50;"
         "border: 1px solid #66BB6A;"
         "}"
     );
-    m_loopCheckBox->setAlignment(Qt::AlignCenter);
     connect(m_loopCheckBox, &QCheckBox::stateChanged,
             this, &TransportWidget::onLoopChanged);
     loopLayout->addWidget(m_loopCheckBox);
