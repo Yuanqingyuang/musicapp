@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FL Studio Style Music Editor</title>
+    <title>FL Studio Style Music Editor v4</title>
     <style>
         * {
             margin: 0;
@@ -32,25 +32,9 @@
             flex-wrap: wrap;
         }
 
-        .toolbar-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .toolbar-center {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .toolbar-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .toolbar-left { display: flex; align-items: center; gap: 8px; }
+        .toolbar-center { flex: 1; display: flex; justify-content: center; align-items: center; gap: 16px; }
+        .toolbar-right { display: flex; align-items: center; gap: 8px; }
 
         .btn {
             background: linear-gradient(180deg, #444 0%, #333 100%);
@@ -61,546 +45,157 @@
             cursor: pointer;
             font-size: 14px;
             transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 4px;
         }
 
-        .btn:hover {
-            background: linear-gradient(180deg, #555 0%, #444 100%);
-            border-color: #666;
-        }
-
-        .btn:active {
-            background: linear-gradient(180deg, #333 0%, #444 100%);
-        }
-
-        .btn-play {
-            background: linear-gradient(180deg, #4CAF50 0%, #388E3C 100%);
-            border-color: #66BB6A;
-            padding: 8px 16px;
-            font-size: 16px;
-        }
-
-        .btn-play:hover {
-            background: linear-gradient(180deg, #66BB6A 0%, #4CAF50 100%);
-        }
-
-        .btn-stop {
-            background: linear-gradient(180deg, #f44336 0%, #d32f2f 100%);
-            border-color: #ef5350;
-        }
-
-        .btn-stop:hover {
-            background: linear-gradient(180deg, #ef5350 0%, #f44336 100%);
-        }
-
-        .bpm-control {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .bpm-control input {
-            width: 60px;
-            background: #2a2a2a;
-            border: 1px solid #444;
-            border-radius: 4px;
-            padding: 4px 8px;
-            color: #e0e0e0;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .bpm-control input:focus {
-            outline: none;
-            border-color: #666;
-        }
-
-        .bpm-slider {
-            width: 100px;
-            cursor: pointer;
-        }
-
-        .time-display {
-            font-family: 'Courier New', monospace;
-            font-size: 16px;
-            font-weight: bold;
-            color: #81C784;
-            min-width: 80px;
-            text-align: center;
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            overflow: hidden;
-        }
-
-        .editor-area {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #1f1f1f;
-            border-right: 1px solid #333;
-        }
-
-        .editor-tabs {
-            display: flex;
-            background: #252525;
-            border-bottom: 1px solid #333;
-        }
-
-        .tab-btn {
-            padding: 8px 20px;
-            background: transparent;
-            border: none;
-            color: #888;
-            cursor: pointer;
-            font-size: 14px;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .tab-btn.active {
-            color: #e0e0e0;
-            border-bottom-color: #4CAF50;
-            background: rgba(76, 175, 80, 0.1);
-        }
-
-        .tab-btn:hover {
-            color: #e0e0e0;
-        }
-
-        .editor-container {
-            flex: 1;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .piano-roll {
-            width: 100%;
-            height: 100%;
-            display: flex;
-        }
-
-        .piano-keyboard {
-            width: 80px;
-            background: #252525;
-            border-right: 1px solid #333;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .piano-key {
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 4px;
-            font-size: 10px;
-            color: #888;
-            border-bottom: 1px solid #333;
-            cursor: pointer;
-        }
-
-        .piano-key.white {
-            background: #333;
-        }
-
-        .piano-key.black {
-            background: #1a1a1a;
-            color: #aaa;
-        }
-
-        .piano-key.active {
-            background: #4CAF50;
-            color: #fff;
-        }
-
-        .roll-canvas-wrapper {
-            flex: 1;
-            overflow: auto;
-            position: relative;
-        }
-
-        #rollCanvas {
-            display: block;
-            background: #222;
-        }
-
-        .step-sequencer {
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            padding: 16px;
-        }
-
-        .sequencer-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .sequencer-track {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px;
-            background: #252525;
-            border-radius: 4px;
-        }
-
-        .track-name {
-            width: 80px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #ccc;
-        }
-
-        .track-steps {
-            display: flex;
-            gap: 4px;
-            flex: 1;
-        }
-
-        .step-btn {
-            width: 30px;
-            height: 30px;
-            background: #333;
-            border: 1px solid #444;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-
-        .step-btn:hover {
-            background: #444;
-        }
-
-        .step-btn.active {
-            background: #4CAF50;
-            border-color: #66BB6A;
-            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
-        }
-
-        .step-btn.playing {
-            background: #FF9800;
-            border-color: #FFB74D;
-        }
-
-        .step-btn.active.playing {
-            background: #FFC107;
-            border-color: #FFD54F;
-            box-shadow: 0 0 12px rgba(255, 193, 7, 0.7);
-        }
-
-        .mixer-panel {
-            width: 280px;
-            background: #222;
-            display: flex;
-            flex-direction: column;
-            border-left: 1px solid #333;
-        }
-
-        .mixer-header {
-            padding: 12px 16px;
-            background: #252525;
-            border-bottom: 1px solid #333;
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .mixer-toggle {
-            font-size: 20px;
-            cursor: pointer;
-            color: #888;
-        }
-
-        .mixer-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px;
-        }
-
-        .mixer-track {
-            background: #252525;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 12px;
-            border: 1px solid #333;
-        }
-
-        .mixer-track-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .mixer-track-name {
-            font-size: 13px;
-            font-weight: bold;
-            color: #ccc;
-        }
-
-        .track-controls {
-            display: flex;
-            gap: 4px;
-        }
-
-        .control-btn {
-            width: 24px;
-            height: 24px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: all 0.2s;
-        }
-
-        .btn-mute {
-            background: #555;
-            color: #ccc;
-        }
-
-        .btn-mute.active {
-            background: #f44336;
-            color: #fff;
-        }
-
-        .btn-solo {
-            background: #555;
-            color: #ccc;
-        }
-
-        .btn-solo.active {
-            background: #FF9800;
-            color: #fff;
-        }
-
-        .volume-control {
-            margin-bottom: 12px;
-        }
-
-        .volume-label {
-            font-size: 11px;
-            color: #888;
-            margin-bottom: 4px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .volume-slider {
-            width: 100%;
-            height: 8px;
-            background: #333;
-            border-radius: 4px;
-            cursor: pointer;
-            appearance: none;
-        }
-
-        .volume-slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            background: #4CAF50;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid #fff;
-        }
-
-        .pan-control {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .pan-label {
-            font-size: 11px;
-            color: #888;
-            margin-bottom: 8px;
-        }
-
-        .pan-knob {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: linear-gradient(180deg, #555 0%, #333 100%);
-            border: 2px solid #444;
-            cursor: pointer;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .pan-knob:hover {
-            border-color: #666;
-        }
-
-        .pan-indicator {
-            width: 4px;
-            height: 16px;
-            background: #4CAF50;
-            border-radius: 2px;
-            transform-origin: center;
-        }
-
-        .master-output {
-            background: #2d2d2d;
-            border-radius: 8px;
-            padding: 12px;
-            margin-top: 12px;
-            border: 1px solid #444;
-        }
-
-        .vu-meters {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 8px;
-        }
-
-        .vu-meter {
-            width: 24px;
-            height: 80px;
-            background: #1a1a1a;
-            border-radius: 4px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #444;
-        }
-
-        .vu-bar {
-            width: 100%;
-            background: linear-gradient(180deg, #4CAF50 0%, #81C784 100%);
-            position: absolute;
-            bottom: 0;
-            transition: height 0.1s;
-        }
-
-        .vu-bar.clip {
-            background: linear-gradient(180deg, #f44336 0%, #ef5350 100%);
-        }
-
-        .snap-selector {
-            display: flex;
-            gap: 4px;
-        }
-
-        .snap-btn {
-            padding: 4px 8px;
-            font-size: 12px;
-            background: #333;
-            border: 1px solid #444;
-            border-radius: 4px;
-            color: #888;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .snap-btn.active {
-            background: #4CAF50;
-            color: #fff;
-            border-color: #66BB6A;
-        }
-
-        .waveform-type {
-            display: flex;
-            gap: 4px;
-        }
-
-        .waveform-btn {
-            padding: 4px 8px;
-            font-size: 12px;
-            background: #333;
-            border: 1px solid #444;
-            border-radius: 4px;
-            color: #888;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .waveform-btn.active {
-            background: #2196F3;
-            color: #fff;
-            border-color: #64B5F6;
-        }
-
-        .project-controls {
-            display: flex;
-            gap: 4px;
-        }
-
-        .project-btn {
-            padding: 4px 8px;
-            font-size: 12px;
-            background: #333;
-            border: 1px solid #444;
-            border-radius: 4px;
-            color: #888;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .project-btn:hover {
-            background: #444;
-            color: #e0e0e0;
-        }
-
-        .loop-toggle {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .loop-toggle input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .loop-toggle label {
-            font-size: 14px;
-            color: #ccc;
-        }
-
-        .canvas-cursor {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 2px;
-            background: #FF9800;
-            pointer-events: none;
-            z-index: 10;
-            box-shadow: 0 0 6px rgba(255, 152, 0, 0.8);
-        }
-
-        .zoom-controls {
-            display: flex;
-            gap: 4px;
-        }
-
-        .zoom-btn {
-            padding: 4px 8px;
-            font-size: 12px;
-            background: #333;
-            border: 1px solid #444;
-            border-radius: 4px;
-            color: #888;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .zoom-btn:hover {
-            background: #444;
-            color: #e0e0e0;
-        }
+        .btn:hover { background: linear-gradient(180deg, #555 0%, #444 100%); border-color: #666; }
+        .btn-play { background: linear-gradient(180deg, #4CAF50 0%, #388E3C 100%); border-color: #66BB6A; padding: 8px 16px; font-size: 16px; }
+        .btn-play:hover { background: linear-gradient(180deg, #66BB6A 0%, #4CAF50 100%); }
+        .btn-stop { background: linear-gradient(180deg, #f44336 0%, #d32f2f 100%); border-color: #ef5350; }
+        .btn-stop:hover { background: linear-gradient(180deg, #ef5350 0%, #f44336 100%); }
+
+        .bpm-control { display: flex; align-items: center; gap: 8px; }
+        .bpm-control input[type="number"] { width: 60px; background: #2a2a2a; border: 1px solid #444; border-radius: 4px; padding: 4px 8px; color: #e0e0e0; font-size: 14px; text-align: center; }
+        .bpm-control input:focus { outline: none; border-color: #666; }
+        .bpm-slider { width: 100px; cursor: pointer; }
+        .time-display { font-family: 'Courier New', monospace; font-size: 16px; font-weight: bold; color: #81C784; min-width: 80px; text-align: center; }
+
+        .main-content { flex: 1; display: flex; overflow: hidden; }
+
+        .editor-area { flex: 1; display: flex; flex-direction: column; background: #1f1f1f; border-right: 1px solid #333; }
+        .editor-tabs { display: flex; background: #252525; border-bottom: 1px solid #333; }
+        .tab-btn { padding: 8px 20px; background: transparent; border: none; color: #888; cursor: pointer; font-size: 14px; border-bottom: 2px solid transparent; transition: all 0.2s; }
+        .tab-btn.active { color: #e0e0e0; border-bottom-color: #4CAF50; background: rgba(76, 175, 80, 0.1); }
+        .tab-btn:hover { color: #e0e0e0; }
+
+        .editor-container { flex: 1; overflow: hidden; position: relative; }
+        .piano-roll { width: 100%; height: 100%; display: flex; }
+        .piano-keyboard { width: 80px; background: #252525; border-right: 1px solid #333; overflow-y: auto; display: flex; flex-direction: column; }
+        .piano-key { height: 30px; display: flex; align-items: center; justify-content: flex-end; padding-right: 4px; font-size: 10px; color: #888; border-bottom: 1px solid #333; cursor: pointer; transition: background 0.1s; }
+        .piano-key.white { background: #333; }
+        .piano-key.black { background: #1a1a1a; color: #aaa; }
+        .piano-key.active { background: #4CAF50 !important; color: #fff !important; }
+        .piano-key:hover { background: #555; }
+
+        .roll-canvas-wrapper { flex: 1; overflow: auto; position: relative; }
+        #rollCanvas { display: block; background: #222; }
+        .canvas-cursor { position: absolute; top: 0; left: 0; width: 2px; background: #FF9800; pointer-events: none; z-index: 10; box-shadow: 0 0 6px rgba(255, 152, 0, 0.8); }
+
+        .step-sequencer { width: 100%; height: 100%; overflow: auto; padding: 16px; }
+        .sequencer-grid { display: flex; flex-direction: column; gap: 8px; }
+        .sequencer-track { display: flex; align-items: center; gap: 12px; padding: 8px; background: #252525; border-radius: 4px; }
+        .track-name { width: 80px; font-size: 14px; font-weight: bold; color: #ccc; }
+        .track-steps { display: flex; gap: 4px; flex: 1; }
+        .step-btn { width: 30px; height: 30px; background: #333; border: 1px solid #444; border-radius: 4px; cursor: pointer; transition: all 0.15s; }
+        .step-btn:hover { background: #444; }
+        .step-btn.active { background: #4CAF50; border-color: #66BB6A; box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); }
+        .step-btn.playing { background: #FF9800; border-color: #FFB74D; }
+        .step-btn.active.playing { background: #FFC107; border-color: #FFD54F; box-shadow: 0 0 12px rgba(255, 193, 7, 0.7); }
+
+        .mixer-panel { width: 350px; background: #222; display: flex; flex-direction: column; border-left: 1px solid #333; }
+        .mixer-header { padding: 12px 16px; background: #252525; border-bottom: 1px solid #333; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
+        .mixer-toggle { font-size: 20px; cursor: pointer; color: #888; }
+        .mixer-content { flex: 1; overflow-y: auto; padding: 12px; }
+
+        .mixer-track { background: #252525; border-radius: 8px; padding: 12px; margin-bottom: 12px; border: 1px solid #333; }
+        .mixer-track-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .mixer-track-name { font-size: 13px; font-weight: bold; color: #ccc; }
+        .track-controls { display: flex; gap: 4px; }
+        .control-btn { width: 24px; height: 24px; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; transition: all 0.2s; }
+        .btn-mute { background: #555; color: #ccc; }
+        .btn-mute.active { background: #f44336; color: #fff; }
+        .btn-solo { background: #555; color: #ccc; }
+        .btn-solo.active { background: #FF9800; color: #fff; }
+
+        .volume-control { margin-bottom: 12px; }
+        .volume-label { font-size: 11px; color: #888; margin-bottom: 4px; display: flex; justify-content: space-between; }
+        .volume-slider { width: 100%; height: 8px; background: #333; border-radius: 4px; cursor: pointer; appearance: none; }
+        .volume-slider::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; background: #4CAF50; border-radius: 50%; cursor: pointer; border: 2px solid #fff; }
+
+        .pan-control { display: flex; flex-direction: column; align-items: center; }
+        .pan-label { font-size: 11px; color: #888; margin-bottom: 8px; }
+        .pan-knob { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(180deg, #555 0%, #333 100%); border: 2px solid #444; cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .pan-knob:hover { border-color: #666; }
+        .pan-indicator { width: 4px; height: 16px; background: #4CAF50; border-radius: 2px; transform-origin: center; }
+
+        .master-output { background: #2d2d2d; border-radius: 8px; padding: 12px; margin-top: 12px; border: 1px solid #444; }
+        .vu-meters { display: flex; gap: 8px; justify-content: center; margin-top: 8px; }
+        .vu-meter { width: 24px; height: 80px; background: #1a1a1a; border-radius: 4px; position: relative; overflow: hidden; border: 1px solid #444; }
+        .vu-bar { width: 100%; background: linear-gradient(180deg, #4CAF50 0%, #81C784 100%); position: absolute; bottom: 0; transition: height 0.1s; }
+        .vu-bar.clip { background: linear-gradient(180deg, #f44336 0%, #ef5350 100%); }
+
+        .snap-selector, .project-controls, .zoom-controls { display: flex; gap: 4px; }
+        .snap-btn, .project-btn, .zoom-btn { padding: 4px 8px; font-size: 12px; background: #333; border: 1px solid #444; border-radius: 4px; color: #888; cursor: pointer; transition: all 0.2s; }
+        .snap-btn.active { background: #4CAF50; color: #fff; border-color: #66BB6A; }
+        .project-btn:hover, .zoom-btn:hover { background: #444; color: #e0e0e0; }
+
+        .loop-toggle { display: flex; align-items: center; gap: 4px; }
+        .loop-toggle input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+        .loop-toggle label { font-size: 14px; color: #ccc; }
+
+        /* 乐器管理面板 */
+        .instrument-manager { background: #252525; border-radius: 8px; padding: 12px; margin-bottom: 12px; border: 1px solid #333; }
+        .instrument-manager-title { font-size: 12px; font-weight: bold; color: #ccc; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .add-instrument-btn { padding: 4px 8px; font-size: 11px; background: #4CAF50; border: 1px solid #66BB6A; border-radius: 4px; color: #fff; cursor: pointer; }
+        .add-instrument-btn:hover { background: #66BB6A; }
+
+        .instrument-list { display: flex; flex-direction: column; gap: 8px; }
+        .instrument-item { display: flex; align-items: center; gap: 8px; padding: 8px; background: #333; border-radius: 4px; border: 1px solid #444; cursor: pointer; transition: all 0.2s; }
+        .instrument-item:hover { background: #3a3a3a; }
+        .instrument-item.active { border-color: #4CAF50; background: rgba(76, 175, 80, 0.1); }
+        .instrument-item-color { width: 12px; height: 12px; border-radius: 50%; }
+        .instrument-item-name { flex: 1; font-size: 12px; color: #ccc; }
+        .instrument-item-type { font-size: 10px; color: #888; }
+        .instrument-item-delete { width: 20px; height: 20px; background: transparent; border: none; color: #888; cursor: pointer; font-size: 14px; border-radius: 4px; }
+        .instrument-item-delete:hover { background: #f44336; color: #fff; }
+
+        /* 音色编辑面板 */
+        .sound-editor { background: #252525; border-radius: 8px; padding: 12px; margin-bottom: 12px; border: 1px solid #333; }
+        .sound-editor-title { font-size: 12px; font-weight: bold; color: #ccc; margin-bottom: 8px; }
+
+        .synth-type-selector { display: flex; gap: 4px; margin-bottom: 12px; flex-wrap: wrap; }
+        .synth-type-btn { padding: 4px 8px; font-size: 11px; background: #333; border: 1px solid #444; border-radius: 4px; color: #888; cursor: pointer; transition: all 0.2s; }
+        .synth-type-btn.active { background: #9C27B0; color: #fff; border-color: #BA68C8; }
+        .synth-type-btn:hover { background: #444; color: #e0e0e0; }
+
+        .adsr-panel { margin-bottom: 12px; }
+        .adsr-title { font-size: 11px; color: #888; margin-bottom: 8px; }
+        .adsr-controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .adsr-knob-container { display: flex; flex-direction: column; align-items: center; }
+        .adsr-knob { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(180deg, #555 0%, #333 100%); border: 2px solid #444; cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; }
+        .adsr-knob:hover { border-color: #666; }
+        .adsr-knob-indicator { width: 3px; height: 12px; background: #2196F3; border-radius: 2px; transform-origin: center; }
+        .adsr-label { font-size: 10px; color: #888; margin-top: 4px; }
+        .adsr-value { font-size: 10px; color: #4CAF50; }
+
+        .filter-panel { margin-bottom: 12px; }
+        .filter-title { font-size: 11px; color: #888; margin-bottom: 8px; }
+        .filter-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .filter-type-select { background: #333; border: 1px solid #444; border-radius: 4px; padding: 4px 8px; color: #e0e0e0; font-size: 12px; cursor: pointer; }
+        .filter-freq { flex: 1; min-width: 100px; }
+
+        .section-divider { height: 1px; background: #333; margin: 12px 0; }
+        .section-title { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+
+        /* 模态框 */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .modal { background: #2a2a2a; border-radius: 8px; padding: 20px; min-width: 400px; max-width: 600px; border: 1px solid #444; }
+        .modal-header { font-size: 16px; font-weight: bold; margin-bottom: 16px; color: #fff; }
+        .modal-content { margin-bottom: 16px; }
+        .modal-footer { display: flex; justify-content: flex-end; gap: 8px; }
+        .modal-btn { padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 14px; border: none; }
+        .modal-btn-cancel { background: #555; color: #ccc; }
+        .modal-btn-cancel:hover { background: #666; }
+        .modal-btn-confirm { background: #4CAF50; color: #fff; }
+        .modal-btn-confirm:hover { background: #66BB6A; }
+
+        .form-group { margin-bottom: 12px; }
+        .form-label { display: block; font-size: 12px; color: #888; margin-bottom: 4px; }
+        .form-input { width: 100%; padding: 8px; background: #333; border: 1px solid #444; border-radius: 4px; color: #e0e0e0; font-size: 14px; }
+        .form-input:focus { outline: none; border-color: #666; }
+        .form-select { width: 100%; padding: 8px; background: #333; border: 1px solid #444; border-radius: 4px; color: #e0e0e0; font-size: 14px; cursor: pointer; }
+
+        /* 轨道乐器选择 */
+        .track-instrument-select { background: #333; border: 1px solid #444; border-radius: 4px; padding: 4px; color: #e0e0e0; font-size: 11px; cursor: pointer; width: 100%; margin-top: 8px; }
     </style>
 </head>
 <body>
@@ -617,15 +212,12 @@
         <div class="toolbar-center">
             <button class="btn btn-stop" onclick="app.stop()">■</button>
             <button class="btn btn-play" onclick="app.play()">▶</button>
-            
             <div class="time-display" id="timeDisplay">1:1:00</div>
-            
             <div class="bpm-control">
                 <span style="font-size: 14px; color: #888;">BPM</span>
                 <input type="number" id="bpmInput" value="120" min="60" max="200" onchange="app.setBPM(this.value)">
                 <input type="range" class="bpm-slider" id="bpmSlider" value="120" min="60" max="200" oninput="app.setBPM(this.value)">
             </div>
-            
             <div class="loop-toggle">
                 <input type="checkbox" id="loopToggle" checked onchange="app.setLoop(this.checked)">
                 <label for="loopToggle">循环</label>
@@ -637,11 +229,6 @@
                 <button class="snap-btn active" data-snap="4" onclick="app.setSnap(4)">1/4</button>
                 <button class="snap-btn" data-snap="8" onclick="app.setSnap(8)">1/8</button>
                 <button class="snap-btn" data-snap="16" onclick="app.setSnap(16)">1/16</button>
-            </div>
-            <div class="waveform-type">
-                <button class="waveform-btn active" data-wave="triangle" onclick="app.setWaveform('triangle')">三角波</button>
-                <button class="waveform-btn" data-wave="square" onclick="app.setWaveform('square')">方波</button>
-                <button class="waveform-btn" data-wave="sawtooth" onclick="app.setWaveform('sawtooth')">锯齿波</button>
             </div>
             <div class="zoom-controls">
                 <button class="zoom-btn" onclick="app.zoomIn()">+</button>
@@ -672,130 +259,405 @@
         
         <div class="mixer-panel">
             <div class="mixer-header">
-                <span>混音器</span>
+                <span>乐器 & 混音</span>
                 <span class="mixer-toggle" onclick="app.toggleMixer()">◀</span>
             </div>
-            <div class="mixer-content" id="mixerContent">
-            </div>
+            <div class="mixer-content" id="mixerContent"></div>
         </div>
     </div>
 
     <script>
+        // ========== 音频引擎 v3 ==========
         class AudioEngine {
             constructor() {
                 this.audioContext = null;
                 this.masterGain = null;
-                this.tracks = {};
-                this.drumBuffers = {};
+                this.masterCompressor = null;
                 this.isInitialized = false;
                 this.scheduledNotes = [];
-                this.waveform = 'triangle';
+                
+                // 自定义乐器列表
+                this.instruments = {};
+                this.instrumentCounter = 0;
+                
+                // 初始化默认乐器
+                this.initDefaultInstruments();
+            }
+
+            initDefaultInstruments() {
+                // 钢琴 - FM合成
+                this.addInstrument({
+                    name: '钢琴',
+                    type: 'fm',
+                    attack: 0.005,
+                    decay: 0.3,
+                    sustain: 0.4,
+                    release: 0.5,
+                    filterType: 'lowpass',
+                    filterFreq: 5000,
+                    filterQ: 1,
+                    modulatorFreq: 1.5,
+                    modulatorGain: 200,
+                    color: '#4CAF50'
+                });
+
+                // 风琴 - 加法合成
+                this.addInstrument({
+                    name: '风琴',
+                    type: 'additive',
+                    attack: 0.01,
+                    decay: 0.1,
+                    sustain: 0.8,
+                    release: 0.3,
+                    filterType: 'lowpass',
+                    filterFreq: 4000,
+                    filterQ: 0.5,
+                    harmonics: [1, 2, 3, 4, 5, 6],
+                    amplitudes: [1, 0.5, 0.3, 0.25, 0.2, 0.15],
+                    color: '#9C27B0'
+                });
+
+                // 合成器 - 减法合成
+                this.addInstrument({
+                    name: '合成器',
+                    type: 'subtractive',
+                    waveform: 'sawtooth',
+                    attack: 0.05,
+                    decay: 0.2,
+                    sustain: 0.6,
+                    release: 0.4,
+                    filterType: 'lowpass',
+                    filterFreq: 2000,
+                    filterQ: 5,
+                    detune: 5,
+                    color: '#2196F3'
+                });
+
+                // 铺底
+                this.addInstrument({
+                    name: '铺底',
+                    type: 'pad',
+                    attack: 0.5,
+                    decay: 0.5,
+                    sustain: 0.7,
+                    release: 1.0,
+                    filterType: 'lowpass',
+                    filterFreq: 3000,
+                    filterQ: 2,
+                    detunes: [-12, -5, 0, 5, 12],
+                    color: '#FF9800'
+                });
+
+                // 贝斯
+                this.addInstrument({
+                    name: '贝斯',
+                    type: 'subtractive',
+                    waveform: 'sawtooth',
+                    attack: 0.01,
+                    decay: 0.2,
+                    sustain: 0.5,
+                    release: 0.2,
+                    filterType: 'lowpass',
+                    filterFreq: 800,
+                    filterQ: 3,
+                    color: '#F44336'
+                });
+            }
+
+            addInstrument(config) {
+                const id = 'inst_' + (++this.instrumentCounter);
+                this.instruments[id] = {
+                    id: id,
+                    name: config.name || '新乐器',
+                    type: config.type || 'subtractive',
+                    attack: config.attack || 0.01,
+                    decay: config.decay || 0.2,
+                    sustain: config.sustain || 0.5,
+                    release: config.release || 0.3,
+                    filterType: config.filterType || 'lowpass',
+                    filterFreq: config.filterFreq || 2000,
+                    filterQ: config.filterQ || 1,
+                    waveform: config.waveform || 'sawtooth',
+                    modulatorFreq: config.modulatorFreq || 1.5,
+                    modulatorGain: config.modulatorGain || 200,
+                    harmonics: config.harmonics || [1, 2, 3, 4, 5],
+                    amplitudes: config.amplitudes || [1, 0.5, 0.3, 0.2, 0.1],
+                    detune: config.detune || 0,
+                    detunes: config.detunes || [0],
+                    color: config.color || '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0')
+                };
+                return id;
+            }
+
+            removeInstrument(id) {
+                if (this.instruments[id] && Object.keys(this.instruments).length > 1) {
+                    delete this.instruments[id];
+                    return true;
+                }
+                return false;
+            }
+
+            getInstrument(id) {
+                return this.instruments[id] || Object.values(this.instruments)[0];
+            }
+
+            getInstrumentList() {
+                return Object.values(this.instruments);
             }
 
             init() {
                 if (this.isInitialized) return;
                 this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                this.masterCompressor = this.audioContext.createDynamicsCompressor();
+                this.masterCompressor.threshold.value = -24;
+                this.masterCompressor.knee.value = 30;
+                this.masterCompressor.ratio.value = 12;
+                this.masterCompressor.attack.value = 0.003;
+                this.masterCompressor.release.value = 0.25;
+                
                 this.masterGain = this.audioContext.createGain();
                 this.masterGain.gain.value = 0.8;
-                this.masterGain.connect(this.audioContext.destination);
+                
+                this.masterGain.connect(this.masterCompressor);
+                this.masterCompressor.connect(this.audioContext.destination);
+                
                 this.isInitialized = true;
-                this.loadDrumSamples();
             }
 
-            async loadDrumSamples() {
-                const drumConfigs = [
-                    { name: 'kick', freq: 60, duration: 0.5 },
-                    { name: 'snare', freq: 200, duration: 0.2 },
-                    { name: 'hihat', freq: 800, duration: 0.05 },
-                    { name: 'synth', freq: 440, duration: 0.3 }
-                ];
-
-                for (const config of drumConfigs) {
-                    const buffer = await this.generateDrumSample(config);
-                    this.drumBuffers[config.name] = buffer;
-                }
-            }
-
-            async generateDrumSample(config) {
-                const sampleRate = this.audioContext.sampleRate;
-                const duration = config.duration;
-                const bufferSize = sampleRate * duration;
-                const buffer = this.audioContext.createBuffer(1, bufferSize, sampleRate);
-                const data = buffer.getChannelData(0);
-
-                for (let i = 0; i < bufferSize; i++) {
-                    const t = i / sampleRate;
-                    if (config.name === 'kick') {
-                        const freq = config.freq * Math.exp(-t * 15);
-                        data[i] = Math.sin(2 * Math.PI * freq * t) * Math.exp(-t * 10) * 0.8;
-                    } else if (config.name === 'snare') {
-                        const noise = (Math.random() * 2 - 1) * Math.exp(-t * 20);
-                        const tone = Math.sin(2 * Math.PI * config.freq * t) * Math.exp(-t * 8);
-                        data[i] = (noise + tone) * 0.5;
-                    } else if (config.name === 'hihat') {
-                        const noise = (Math.random() * 2 - 1);
-                        data[i] = noise * Math.exp(-t * 50) * 0.6;
-                    } else {
-                        data[i] = Math.sin(2 * Math.PI * config.freq * t) * Math.exp(-t * 3) * 0.5;
-                    }
-                }
-                return buffer;
-            }
-
-            playNote(freq, startTime, duration, trackSettings) {
+            playNote(freq, startTime, duration, trackSettings, instrumentId) {
                 if (!this.isInitialized) return;
                 
-                const osc = this.audioContext.createOscillator();
-                const gainNode = this.audioContext.createGain();
-                const panNode = this.audioContext.createStereoPanner();
+                const inst = this.getInstrument(instrumentId);
+                if (!inst) return;
 
-                osc.type = this.waveform;
-                osc.frequency.value = freq;
-
-                gainNode.gain.setValueAtTime(0, startTime);
-                gainNode.gain.linearRampToValueAtTime(trackSettings.volume * 0.5, startTime + 0.01);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
-
-                panNode.pan.value = trackSettings.pan;
-
-                osc.connect(gainNode);
-                gainNode.connect(panNode);
-                panNode.connect(this.masterGain);
-
-                osc.start(startTime);
-                osc.stop(startTime + duration);
-
-                this.scheduledNotes.push({ osc, startTime, endTime: startTime + duration });
+                switch (inst.type) {
+                    case 'fm':
+                        this.playFMNote(freq, startTime, duration, trackSettings, inst);
+                        break;
+                    case 'additive':
+                        this.playAdditiveNote(freq, startTime, duration, trackSettings, inst);
+                        break;
+                    case 'subtractive':
+                        this.playSubtractiveNote(freq, startTime, duration, trackSettings, inst);
+                        break;
+                    case 'pad':
+                        this.playPadNote(freq, startTime, duration, trackSettings, inst);
+                        break;
+                    default:
+                        this.playBasicNote(freq, startTime, duration, trackSettings, inst);
+                }
             }
 
-            playDrum(drumName, startTime, trackSettings) {
-                if (!this.isInitialized || !this.drumBuffers[drumName]) return;
+            playFMNote(freq, startTime, duration, trackSettings, inst) {
+                const ctx = this.audioContext;
+                
+                const carrier = ctx.createOscillator();
+                carrier.type = 'sine';
+                carrier.frequency.value = freq;
+                
+                const modulator = ctx.createOscillator();
+                modulator.type = 'sine';
+                modulator.frequency.value = freq * inst.modulatorFreq;
+                
+                const modGain = ctx.createGain();
+                modGain.gain.value = inst.modulatorGain;
+                
+                const envelope = ctx.createGain();
+                envelope.gain.setValueAtTime(0, startTime);
+                envelope.gain.linearRampToValueAtTime(trackSettings.volume * 0.6, startTime + inst.attack);
+                envelope.gain.linearRampToValueAtTime(trackSettings.volume * 0.6 * inst.sustain, startTime + inst.attack + inst.decay);
+                envelope.gain.setValueAtTime(trackSettings.volume * 0.6 * inst.sustain, startTime + duration - inst.release);
+                envelope.gain.linearRampToValueAtTime(0, startTime + duration);
+                
+                const filter = ctx.createBiquadFilter();
+                filter.type = inst.filterType;
+                filter.frequency.value = inst.filterFreq;
+                filter.Q.value = inst.filterQ;
+                
+                const panner = ctx.createStereoPanner();
+                panner.pan.value = trackSettings.pan;
+                
+                modulator.connect(modGain);
+                modGain.connect(carrier.frequency);
+                carrier.connect(envelope);
+                envelope.connect(filter);
+                filter.connect(panner);
+                panner.connect(this.masterGain);
+                
+                carrier.start(startTime);
+                modulator.start(startTime);
+                carrier.stop(startTime + duration + 0.1);
+                modulator.stop(startTime + duration + 0.1);
+                
+                this.scheduledNotes.push({ carrier, modulator, startTime, endTime: startTime + duration });
+            }
 
-                const source = this.audioContext.createBufferSource();
-                const gainNode = this.audioContext.createGain();
-                const panNode = this.audioContext.createStereoPanner();
+            playAdditiveNote(freq, startTime, duration, trackSettings, inst) {
+                const ctx = this.audioContext;
+                const oscillators = [];
+                
+                const masterEnv = ctx.createGain();
+                masterEnv.gain.setValueAtTime(0, startTime);
+                masterEnv.gain.linearRampToValueAtTime(trackSettings.volume * 0.5, startTime + inst.attack);
+                masterEnv.gain.linearRampToValueAtTime(trackSettings.volume * 0.5 * inst.sustain, startTime + inst.attack + inst.decay);
+                masterEnv.gain.setValueAtTime(trackSettings.volume * 0.5 * inst.sustain, startTime + duration - inst.release);
+                masterEnv.gain.linearRampToValueAtTime(0, startTime + duration);
+                
+                const filter = ctx.createBiquadFilter();
+                filter.type = inst.filterType;
+                filter.frequency.value = inst.filterFreq;
+                filter.Q.value = inst.filterQ;
+                
+                const panner = ctx.createStereoPanner();
+                panner.pan.value = trackSettings.pan;
+                
+                for (let i = 0; i < inst.harmonics.length; i++) {
+                    const osc = ctx.createOscillator();
+                    osc.type = 'sine';
+                    osc.frequency.value = freq * inst.harmonics[i];
+                    
+                    const gain = ctx.createGain();
+                    gain.gain.value = inst.amplitudes[i] * 0.2;
+                    
+                    osc.connect(gain);
+                    gain.connect(masterEnv);
+                    osc.start(startTime);
+                    osc.stop(startTime + duration + 0.1);
+                    oscillators.push(osc);
+                }
+                
+                masterEnv.connect(filter);
+                filter.connect(panner);
+                panner.connect(this.masterGain);
+                
+                this.scheduledNotes.push({ oscillators, startTime, endTime: startTime + duration });
+            }
 
-                source.buffer = this.drumBuffers[drumName];
+            playSubtractiveNote(freq, startTime, duration, trackSettings, inst) {
+                const ctx = this.audioContext;
+                
+                const osc = ctx.createOscillator();
+                osc.type = inst.waveform || 'sawtooth';
+                osc.frequency.value = freq;
+                
+                const osc2 = ctx.createOscillator();
+                osc2.type = inst.waveform || 'sawtooth';
+                osc2.frequency.value = freq * (1 + (inst.detune || 0) / 1000);
+                
+                const envelope = ctx.createGain();
+                envelope.gain.setValueAtTime(0, startTime);
+                envelope.gain.linearRampToValueAtTime(trackSettings.volume * 0.5, startTime + inst.attack);
+                envelope.gain.linearRampToValueAtTime(trackSettings.volume * 0.5 * inst.sustain, startTime + inst.attack + inst.decay);
+                envelope.gain.setValueAtTime(trackSettings.volume * 0.5 * inst.sustain, startTime + duration - inst.release);
+                envelope.gain.linearRampToValueAtTime(0, startTime + duration);
+                
+                const filter = ctx.createBiquadFilter();
+                filter.type = inst.filterType;
+                filter.frequency.setValueAtTime(inst.filterFreq * 3, startTime);
+                filter.frequency.exponentialRampToValueAtTime(inst.filterFreq, startTime + inst.attack + inst.decay);
+                filter.Q.value = inst.filterQ;
+                
+                const panner = ctx.createStereoPanner();
+                panner.pan.value = trackSettings.pan;
+                
+                osc.connect(envelope);
+                osc2.connect(envelope);
+                envelope.connect(filter);
+                filter.connect(panner);
+                panner.connect(this.masterGain);
+                
+                osc.start(startTime);
+                osc2.start(startTime);
+                osc.stop(startTime + duration + 0.1);
+                osc2.stop(startTime + duration + 0.1);
+                
+                this.scheduledNotes.push({ osc, osc2, startTime, endTime: startTime + duration });
+            }
 
-                gainNode.gain.setValueAtTime(trackSettings.volume * 0.8, startTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + source.buffer.duration);
+            playPadNote(freq, startTime, duration, trackSettings, inst) {
+                const ctx = this.audioContext;
+                const oscillators = [];
+                
+                const envelope = ctx.createGain();
+                envelope.gain.setValueAtTime(0, startTime);
+                envelope.gain.linearRampToValueAtTime(trackSettings.volume * 0.3, startTime + inst.attack);
+                envelope.gain.linearRampToValueAtTime(trackSettings.volume * 0.3 * inst.sustain, startTime + inst.attack + inst.decay);
+                envelope.gain.setValueAtTime(trackSettings.volume * 0.3 * inst.sustain, startTime + duration - inst.release);
+                envelope.gain.linearRampToValueAtTime(0, startTime + duration);
+                
+                const filter = ctx.createBiquadFilter();
+                filter.type = inst.filterType;
+                filter.frequency.value = inst.filterFreq;
+                filter.Q.value = inst.filterQ;
+                
+                const panner = ctx.createStereoPanner();
+                panner.pan.value = trackSettings.pan;
+                
+                for (const detune of (inst.detunes || [0])) {
+                    const osc = ctx.createOscillator();
+                    osc.type = 'sawtooth';
+                    osc.frequency.value = freq;
+                    osc.detune.value = detune;
+                    osc.connect(envelope);
+                    osc.start(startTime);
+                    osc.stop(startTime + duration + 0.1);
+                    oscillators.push(osc);
+                }
+                
+                envelope.connect(filter);
+                filter.connect(panner);
+                panner.connect(this.masterGain);
+                
+                this.scheduledNotes.push({ oscillators, startTime, endTime: startTime + duration });
+            }
 
-                panNode.pan.value = trackSettings.pan;
-
-                source.connect(gainNode);
-                gainNode.connect(panNode);
-                panNode.connect(this.masterGain);
-
-                source.start(startTime);
-
-                this.scheduledNotes.push({ source, startTime, endTime: startTime + source.buffer.duration });
+            playBasicNote(freq, startTime, duration, trackSettings, inst) {
+                const ctx = this.audioContext;
+                
+                const osc = ctx.createOscillator();
+                osc.type = 'triangle';
+                osc.frequency.value = freq;
+                
+                const envelope = ctx.createGain();
+                envelope.gain.setValueAtTime(0, startTime);
+                envelope.gain.linearRampToValueAtTime(trackSettings.volume * 0.5, startTime + inst.attack);
+                envelope.gain.linearRampToValueAtTime(trackSettings.volume * 0.5 * inst.sustain, startTime + inst.attack + inst.decay);
+                envelope.gain.setValueAtTime(trackSettings.volume * 0.5 * inst.sustain, startTime + duration - inst.release);
+                envelope.gain.linearRampToValueAtTime(0, startTime + duration);
+                
+                const filter = ctx.createBiquadFilter();
+                filter.type = inst.filterType;
+                filter.frequency.value = inst.filterFreq;
+                filter.Q.value = inst.filterQ;
+                
+                const panner = ctx.createStereoPanner();
+                panner.pan.value = trackSettings.pan;
+                
+                osc.connect(envelope);
+                envelope.connect(filter);
+                filter.connect(panner);
+                panner.connect(this.masterGain);
+                
+                osc.start(startTime);
+                osc.stop(startTime + duration + 0.1);
+                
+                this.scheduledNotes.push({ osc, startTime, endTime: startTime + duration });
             }
 
             stopAll() {
                 for (const note of this.scheduledNotes) {
                     try {
                         if (note.osc) note.osc.stop();
+                        if (note.osc2) note.osc2.stop();
+                        if (note.carrier) note.carrier.stop();
+                        if (note.modulator) note.modulator.stop();
                         if (note.source) note.source.stop();
+                        if (note.oscillators) {
+                            for (const osc of note.oscillators) {
+                                try { osc.stop(); } catch (e) {}
+                            }
+                        }
                     } catch (e) {}
                 }
                 this.scheduledNotes = [];
@@ -812,6 +674,7 @@
             }
         }
 
+        // ========== 音序器 ==========
         class Sequencer {
             constructor(audioEngine, ui) {
                 this.audioEngine = audioEngine;
@@ -828,17 +691,9 @@
                 this.onStepChange = null;
             }
 
-            setBPM(bpm) {
-                this.bpm = parseInt(bpm);
-            }
-
-            setLoop(loop) {
-                this.loop = loop;
-            }
-
-            getStepDuration() {
-                return 60 / (this.bpm * 4);
-            }
+            setBPM(bpm) { this.bpm = parseInt(bpm); }
+            setLoop(loop) { this.loop = loop; }
+            getStepDuration() { return 60 / (this.bpm * 4); }
 
             start() {
                 if (this.isPlaying) return;
@@ -861,14 +716,6 @@
                 if (this.onStepChange) this.onStepChange(0);
             }
 
-            toggle() {
-                if (this.isPlaying) {
-                    this.stop();
-                } else {
-                    this.start();
-                }
-            }
-
             scheduler() {
                 while (this.nextNoteTime < this.audioEngine.getCurrentTime() + this.scheduleAheadTime) {
                     this.scheduleNote(this.currentStep, this.nextNoteTime);
@@ -889,13 +736,11 @@
                     const hasSolo = Object.values(tracks).some(t => t.solo);
                     if (hasSolo && !track.solo) continue;
 
-                    if (track.type === 'step') {
-                        if (track.steps[step % 16]) {
-                            this.audioEngine.playDrum(track.instrument, time, {
-                                volume: track.volume,
-                                pan: track.pan
-                            });
-                        }
+                    if (track.type === 'step' && track.steps[step % 16]) {
+                        this.audioEngine.playDrum(track.instrument, time, {
+                            volume: track.volume,
+                            pan: track.pan
+                        });
                     }
                 }
 
@@ -908,12 +753,12 @@
                         const hasSolo = Object.values(tracks).some(t => t.solo);
                         if (hasSolo && !track.solo) continue;
 
-                        const freq = this.midiToFreq(note.pitch);
+                        const freq = 440 * Math.pow(2, (note.pitch - 69) / 12);
                         const duration = note.durationSteps * this.getStepDuration();
                         this.audioEngine.playNote(freq, time, duration, {
                             volume: track.volume,
                             pan: track.pan
-                        });
+                        }, note.instrumentId);
                     }
                 }
 
@@ -930,20 +775,19 @@
                     this.nextNoteTime = this.audioEngine.getCurrentTime() + 0.05;
                 }
             }
-
-            midiToFreq(midi) {
-                return 440 * Math.pow(2, (midi - 69) / 12);
-            }
         }
 
+        // ========== UI ==========
         class UI {
-            constructor() {
+            constructor(app) {
+                this.app = app;
                 this.tracks = {};
                 this.notes = [];
                 this.snap = 16;
-                this.waveform = 'triangle';
                 this.zoom = 40;
                 this.currentView = 'piano';
+                this.selectedInstrumentId = null;
+                
                 this.canvas = document.getElementById('rollCanvas');
                 this.ctx = this.canvas.getContext('2d');
                 this.playCursor = document.getElementById('playCursor');
@@ -951,8 +795,6 @@
                 this.sequencerGrid = document.getElementById('sequencerGrid');
                 this.mixerContent = document.getElementById('mixerContent');
                 this.timeDisplay = document.getElementById('timeDisplay');
-                this.bpmInput = document.getElementById('bpmInput');
-                this.bpmSlider = document.getElementById('bpmSlider');
                 
                 this.initTracks();
                 this.initPianoKeyboard();
@@ -965,7 +807,7 @@
             initTracks() {
                 this.tracks = {
                     piano: {
-                        name: '钢琴',
+                        name: '旋律',
                         type: 'piano',
                         volume: 0.7,
                         pan: 0,
@@ -997,18 +839,8 @@
                         type: 'step',
                         instrument: 'hihat',
                         steps: new Array(16).fill(false),
-                        volume: 0.6,
-                        pan: 0,
-                        mute: false,
-                        solo: false
-                    },
-                    synth: {
-                        name: '合成器',
-                        type: 'step',
-                        instrument: 'synth',
-                        steps: new Array(16).fill(false),
-                        volume: 0.7,
-                        pan: 0,
+                        volume: 0.5,
+                        pan: 0.2,
                         mute: false,
                         solo: false
                     }
@@ -1095,14 +927,17 @@
                 }
 
                 for (const note of this.notes) {
+                    const inst = this.app.audioEngine.getInstrument(note.instrumentId);
+                    const color = inst ? inst.color : '#4CAF50';
+                    
                     const noteY = (endNote - note.pitch) * noteHeight;
                     const noteX = note.startStep * this.zoom;
                     const noteWidth = note.durationSteps * this.zoom;
 
-                    ctx.fillStyle = '#4CAF50';
+                    ctx.fillStyle = color;
                     ctx.fillRect(noteX, noteY, noteWidth, noteHeight - 1);
 
-                    ctx.fillStyle = '#66BB6A';
+                    ctx.fillStyle = this.lightenColor(color, 30);
                     ctx.fillRect(noteX, noteY, noteWidth, 3);
 
                     ctx.fillStyle = '#fff';
@@ -1111,21 +946,62 @@
                 }
             }
 
+            lightenColor(color, percent) {
+                const num = parseInt(color.replace('#', ''), 16);
+                const amt = Math.round(2.55 * percent);
+                const R = Math.min(255, (num >> 16) + amt);
+                const G = Math.min(255, (num >> 8 & 0x00FF) + amt);
+                const B = Math.min(255, (num & 0x0000FF) + amt);
+                return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+            }
+
             initMixer() {
                 this.mixerContent.innerHTML = '';
+                
+                // 乐器管理面板
+                const instrumentManager = document.createElement('div');
+                instrumentManager.className = 'instrument-manager';
+                instrumentManager.innerHTML = `
+                    <div class="instrument-manager-title">
+                        <span>乐器列表</span>
+                        <button class="add-instrument-btn" onclick="app.showAddInstrumentModal()">+ 添加乐器</button>
+                    </div>
+                    <div class="instrument-list" id="instrumentList"></div>
+                `;
+                this.mixerContent.appendChild(instrumentManager);
+                
+                this.renderInstrumentList();
+                
+                // 分隔线
+                const divider = document.createElement('div');
+                divider.className = 'section-divider';
+                this.mixerContent.appendChild(divider);
+                
+                // 轨道混音
+                const sectionTitle = document.createElement('div');
+                sectionTitle.className = 'section-title';
+                sectionTitle.textContent = '轨道混音';
+                this.mixerContent.appendChild(sectionTitle);
                 
                 for (const trackId in this.tracks) {
                     const track = this.tracks[trackId];
                     const trackEl = document.createElement('div');
                     trackEl.className = 'mixer-track';
+                    
+                    let instrumentSelect = '';
+                    if (track.type === 'piano') {
+                        const instruments = this.app.audioEngine.getInstrumentList();
+                        instrumentSelect = `<select class="track-instrument-select" onchange="app.setTrackInstrument('${trackId}', this.value)">
+                            ${instruments.map(inst => `<option value="${inst.id}">${inst.name}</option>`).join('')}
+                        </select>`;
+                    }
+                    
                     trackEl.innerHTML = `
                         <div class="mixer-track-header">
                             <span class="mixer-track-name">${track.name}</span>
                             <div class="track-controls">
-                                <button class="control-btn btn-mute ${track.mute ? 'active' : ''}" 
-                                    onclick="app.toggleMute('${trackId}')">M</button>
-                                <button class="control-btn btn-solo ${track.solo ? 'active' : ''}" 
-                                    onclick="app.toggleSolo('${trackId}')">S</button>
+                                <button class="control-btn btn-mute ${track.mute ? 'active' : ''}" onclick="app.toggleMute('${trackId}')">M</button>
+                                <button class="control-btn btn-solo ${track.solo ? 'active' : ''}" onclick="app.toggleSolo('${trackId}')">S</button>
                             </div>
                         </div>
                         <div class="volume-control">
@@ -1133,36 +1009,147 @@
                                 <span>音量</span>
                                 <span>${Math.round(track.volume * 100)}%</span>
                             </div>
-                            <input type="range" class="volume-slider" min="0" max="1" step="0.01" 
-                                value="${track.volume}" 
-                                oninput="app.setTrackVolume('${trackId}', this.value)">
+                            <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="${track.volume}" oninput="app.setTrackVolume('${trackId}', this.value)">
                         </div>
                         <div class="pan-control">
                             <div class="pan-label">声像</div>
-                            <div class="pan-knob" 
-                                style="transform: rotate(${track.pan * 45}deg)"
-                                onmousedown="app.startPanDrag(event, '${trackId}')">
+                            <div class="pan-knob" style="transform: rotate(${track.pan * 45}deg)" onmousedown="app.startPanDrag(event, '${trackId}')">
                                 <div class="pan-indicator"></div>
                             </div>
                         </div>
+                        ${instrumentSelect}
                     `;
                     this.mixerContent.appendChild(trackEl);
                 }
 
+                // 主输出
                 const masterEl = document.createElement('div');
                 masterEl.className = 'master-output';
                 masterEl.innerHTML = `
                     <div style="font-weight: bold; color: #fff; margin-bottom: 8px;">主输出</div>
                     <div class="vu-meters">
-                        <div class="vu-meter">
-                            <div class="vu-bar" style="height: 0%"></div>
-                        </div>
-                        <div class="vu-meter">
-                            <div class="vu-bar" style="height: 0%"></div>
-                        </div>
+                        <div class="vu-meter"><div class="vu-bar" style="height: 0%"></div></div>
+                        <div class="vu-meter"><div class="vu-bar" style="height: 0%"></div></div>
                     </div>
                 `;
                 this.mixerContent.appendChild(masterEl);
+            }
+
+            renderInstrumentList() {
+                const list = document.getElementById('instrumentList');
+                if (!list) return;
+                
+                list.innerHTML = '';
+                const instruments = this.app.audioEngine.getInstrumentList();
+                
+                for (const inst of instruments) {
+                    const item = document.createElement('div');
+                    item.className = `instrument-item ${this.selectedInstrumentId === inst.id ? 'active' : ''}`;
+                    item.onclick = () => this.selectInstrument(inst.id);
+                    item.innerHTML = `
+                        <div class="instrument-item-color" style="background: ${inst.color}"></div>
+                        <span class="instrument-item-name">${inst.name}</span>
+                        <span class="instrument-item-type">${this.getSynthTypeName(inst.type)}</span>
+                        <button class="instrument-item-delete" onclick="event.stopPropagation(); app.deleteInstrument('${inst.id}')">×</button>
+                    `;
+                    list.appendChild(item);
+                }
+            }
+
+            getSynthTypeName(type) {
+                const names = {
+                    'fm': 'FM',
+                    'additive': '加法',
+                    'subtractive': '减法',
+                    'pad': '铺底'
+                };
+                return names[type] || type;
+            }
+
+            selectInstrument(id) {
+                this.selectedInstrumentId = id;
+                this.renderInstrumentList();
+                this.renderSoundEditor();
+            }
+
+            renderSoundEditor() {
+                // 移除旧的编辑器
+                const oldEditor = document.getElementById('soundEditor');
+                if (oldEditor) oldEditor.remove();
+                
+                if (!this.selectedInstrumentId) return;
+                
+                const inst = this.app.audioEngine.getInstrument(this.selectedInstrumentId);
+                if (!inst) return;
+                
+                const editor = document.createElement('div');
+                editor.id = 'soundEditor';
+                editor.className = 'sound-editor';
+                editor.innerHTML = `
+                    <div class="sound-editor-title">编辑: ${inst.name}</div>
+                    
+                    <div class="synth-type-selector">
+                        <button class="synth-type-btn ${inst.type === 'fm' ? 'active' : ''}" onclick="app.setInstrumentType('${inst.id}', 'fm')">FM</button>
+                        <button class="synth-type-btn ${inst.type === 'additive' ? 'active' : ''}" onclick="app.setInstrumentType('${inst.id}', 'additive')">加法</button>
+                        <button class="synth-type-btn ${inst.type === 'subtractive' ? 'active' : ''}" onclick="app.setInstrumentType('${inst.id}', 'subtractive')">减法</button>
+                        <button class="synth-type-btn ${inst.type === 'pad' ? 'active' : ''}" onclick="app.setInstrumentType('${inst.id}', 'pad')">铺底</button>
+                    </div>
+                    
+                    <div class="adsr-panel">
+                        <div class="adsr-title">ADSR 包络</div>
+                        <div class="adsr-controls">
+                            <div class="adsr-knob-container">
+                                <div class="adsr-knob" onmousedown="app.startADSRDrag(event, '${inst.id}', 'attack')">
+                                    <div class="adsr-knob-indicator" style="transform: rotate(${inst.attack * 135}deg)"></div>
+                                </div>
+                                <span class="adsr-label">Attack</span>
+                                <span class="adsr-value">${Math.round(inst.attack * 1000)}ms</span>
+                            </div>
+                            <div class="adsr-knob-container">
+                                <div class="adsr-knob" onmousedown="app.startADSRDrag(event, '${inst.id}', 'decay')">
+                                    <div class="adsr-knob-indicator" style="transform: rotate(${inst.decay * 45}deg)"></div>
+                                </div>
+                                <span class="adsr-label">Decay</span>
+                                <span class="adsr-value">${Math.round(inst.decay * 1000)}ms</span>
+                            </div>
+                            <div class="adsr-knob-container">
+                                <div class="adsr-knob" onmousedown="app.startADSRDrag(event, '${inst.id}', 'sustain')">
+                                    <div class="adsr-knob-indicator" style="transform: rotate(${inst.sustain * 135 - 67.5}deg)"></div>
+                                </div>
+                                <span class="adsr-label">Sustain</span>
+                                <span class="adsr-value">${Math.round(inst.sustain * 100)}%</span>
+                            </div>
+                            <div class="adsr-knob-container">
+                                <div class="adsr-knob" onmousedown="app.startADSRDrag(event, '${inst.id}', 'release')">
+                                    <div class="adsr-knob-indicator" style="transform: rotate(${inst.release * 45}deg)"></div>
+                                </div>
+                                <span class="adsr-label">Release</span>
+                                <span class="adsr-value">${Math.round(inst.release * 1000)}ms</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-panel">
+                        <div class="filter-title">滤波器</div>
+                        <div class="filter-controls">
+                            <select class="filter-type-select" onchange="app.setInstrumentFilter('${inst.id}', 'filterType', this.value)">
+                                <option value="lowpass" ${inst.filterType === 'lowpass' ? 'selected' : ''}>低通</option>
+                                <option value="highpass" ${inst.filterType === 'highpass' ? 'selected' : ''}>高通</option>
+                                <option value="bandpass" ${inst.filterType === 'bandpass' ? 'selected' : ''}>带通</option>
+                            </select>
+                            <div class="filter-freq">
+                                <div class="volume-label"><span>频率</span><span>${inst.filterFreq}Hz</span></div>
+                                <input type="range" class="volume-slider" min="100" max="10000" value="${inst.filterFreq}" oninput="app.setInstrumentFilter('${inst.id}', 'filterFreq', this.value)">
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // 插入到乐器列表后面
+                const list = document.getElementById('instrumentList');
+                if (list) {
+                    list.parentNode.insertBefore(editor, list.nextSibling);
+                }
             }
 
             initSequencerUI() {
@@ -1220,12 +1207,7 @@
                         const noteX = clickedNote.startStep * this.zoom;
                         const noteWidth = clickedNote.durationSteps * this.zoom;
                         
-                        if (x - noteX < 8) {
-                            isResizing = true;
-                            dragNote = clickedNote;
-                            startX = x;
-                            startDuration = clickedNote.durationSteps;
-                        } else if (noteX + noteWidth - x < 8) {
+                        if (x - noteX < 8 || noteX + noteWidth - x < 8) {
                             isResizing = true;
                             dragNote = clickedNote;
                             startX = x;
@@ -1245,11 +1227,15 @@
                         
                         if (pitch >= 48 && pitch <= 84 && step >= 0 && step < 64) {
                             const snappedStep = this.snapStep(step);
+                            const instruments = this.app.audioEngine.getInstrumentList();
+                            const defaultInstId = instruments.length > 0 ? instruments[0].id : null;
+                            
                             const newNote = {
                                 pitch: pitch,
                                 startStep: snappedStep,
                                 durationSteps: this.snap === 16 ? 4 : this.snap === 8 ? 2 : 1,
-                                trackId: 'piano'
+                                trackId: 'piano',
+                                instrumentId: this.selectedInstrumentId || defaultInstId
                             };
                             this.notes.push(newNote);
                             this.drawPianoRoll();
@@ -1267,16 +1253,12 @@
                         const noteCount = 37;
                         const deltaPitch = Math.round((startY - y) / (this.canvas.height / noteCount));
                         
-                        const newStep = Math.max(0, Math.min(63, this.snapStep(startStep + deltaStep)));
-                        const newPitch = Math.max(48, Math.min(84, startPitch + deltaPitch));
-                        
-                        dragNote.startStep = newStep;
-                        dragNote.pitch = newPitch;
+                        dragNote.startStep = Math.max(0, Math.min(63, this.snapStep(startStep + deltaStep)));
+                        dragNote.pitch = Math.max(48, Math.min(84, startPitch + deltaPitch));
                         this.drawPianoRoll();
                     } else if (isResizing && dragNote) {
                         const deltaStep = Math.round((x - startX) / this.zoom);
-                        const newDuration = Math.max(1, startDuration + deltaStep);
-                        dragNote.durationSteps = newDuration;
+                        dragNote.durationSteps = Math.max(1, startDuration + deltaStep);
                         this.drawPianoRoll();
                     }
                 });
@@ -1371,30 +1353,19 @@
                 document.querySelectorAll('.snap-btn').forEach(btn => btn.classList.remove('active'));
                 document.querySelector(`.snap-btn[data-snap="${snap}"]`).classList.add('active');
             }
-
-            setWaveform(waveform) {
-                this.waveform = waveform;
-                document.querySelectorAll('.waveform-btn').forEach(btn => btn.classList.remove('active'));
-                document.querySelector(`.waveform-btn[data-wave="${waveform}"]`).classList.add('active');
-            }
         }
 
+        // ========== 应用主类 ==========
         class App {
             constructor() {
                 this.audioEngine = new AudioEngine();
-                this.ui = new UI();
+                this.ui = new UI(this);
                 this.sequencer = new Sequencer(this.audioEngine, this.ui);
                 this.sequencer.onStepChange = (step) => this.ui.updatePlayPosition(step);
             }
 
-            play() {
-                this.sequencer.start();
-            }
-
-            stop() {
-                this.sequencer.stop();
-                this.ui.updatePlayPosition(0);
-            }
+            play() { this.sequencer.start(); }
+            stop() { this.sequencer.stop(); this.ui.updatePlayPosition(0); }
 
             setBPM(bpm) {
                 this.sequencer.setBPM(bpm);
@@ -1402,21 +1373,123 @@
                 document.getElementById('bpmSlider').value = bpm;
             }
 
-            setLoop(loop) {
-                this.sequencer.setLoop(loop);
+            setLoop(loop) { this.sequencer.setLoop(loop); }
+            setSnap(snap) { this.ui.setSnap(snap); }
+
+            showAddInstrumentModal() {
+                const modal = document.createElement('div');
+                modal.className = 'modal-overlay';
+                modal.id = 'addInstrumentModal';
+                modal.innerHTML = `
+                    <div class="modal">
+                        <div class="modal-header">添加新乐器</div>
+                        <div class="modal-content">
+                            <div class="form-group">
+                                <label class="form-label">乐器名称</label>
+                                <input type="text" class="form-input" id="newInstName" placeholder="输入乐器名称">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">合成类型</label>
+                                <select class="form-select" id="newInstType">
+                                    <option value="fm">FM 合成</option>
+                                    <option value="additive">加法合成</option>
+                                    <option value="subtractive">减法合成</option>
+                                    <option value="pad">铺底音色</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="modal-btn modal-btn-cancel" onclick="app.closeModal()">取消</button>
+                            <button class="modal-btn modal-btn-confirm" onclick="app.createInstrument()">创建</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
             }
 
-            setSnap(snap) {
-                this.ui.setSnap(snap);
+            closeModal() {
+                const modal = document.getElementById('addInstrumentModal');
+                if (modal) modal.remove();
             }
 
-            setWaveform(waveform) {
-                this.ui.setWaveform(waveform);
-                this.audioEngine.waveform = waveform;
+            createInstrument() {
+                const name = document.getElementById('newInstName').value || '新乐器';
+                const type = document.getElementById('newInstType').value;
+                
+                const id = this.audioEngine.addInstrument({
+                    name: name,
+                    type: type
+                });
+                
+                this.closeModal();
+                this.ui.initMixer();
+                this.ui.selectInstrument(id);
             }
 
-            switchView(view) {
-                this.ui.switchView(view);
+            deleteInstrument(id) {
+                if (this.audioEngine.removeInstrument(id)) {
+                    if (this.ui.selectedInstrumentId === id) {
+                        this.ui.selectedInstrumentId = null;
+                    }
+                    this.ui.initMixer();
+                } else {
+                    alert('无法删除：至少需要保留一个乐器');
+                }
+            }
+
+            selectInstrument(id) {
+                this.ui.selectInstrument(id);
+            }
+
+            setInstrumentType(id, type) {
+                const inst = this.audioEngine.getInstrument(id);
+                if (inst) {
+                    inst.type = type;
+                    this.ui.renderSoundEditor();
+                }
+            }
+
+            setInstrumentFilter(id, param, value) {
+                const inst = this.audioEngine.getInstrument(id);
+                if (inst) {
+                    if (param === 'filterFreq') {
+                        inst.filterFreq = parseInt(value);
+                    } else {
+                        inst[param] = value;
+                    }
+                    this.ui.renderSoundEditor();
+                }
+            }
+
+            startADSRDrag(e, instId, param) {
+                e.preventDefault();
+                const inst = this.audioEngine.getInstrument(instId);
+                if (!inst) return;
+                
+                const knob = e.target.closest('.adsr-knob');
+                const rect = knob.getBoundingClientRect();
+                const startY = e.clientY;
+                const startValue = inst[param];
+                
+                const updateValue = (ev) => {
+                    const deltaY = startY - ev.clientY;
+                    let newValue = startValue + deltaY * 0.005;
+                    newValue = Math.max(0, Math.min(1, newValue));
+                    inst[param] = newValue;
+                    this.ui.renderSoundEditor();
+                };
+                
+                const stopDrag = () => {
+                    document.removeEventListener('mousemove', updateValue);
+                    document.removeEventListener('mouseup', stopDrag);
+                };
+                
+                document.addEventListener('mousemove', updateValue);
+                document.addEventListener('mouseup', stopDrag);
+            }
+
+            setTrackInstrument(trackId, instId) {
+                // 更新该轨道的默认乐器
             }
 
             toggleMute(trackId) {
@@ -1464,17 +1537,15 @@
                 updatePan(e);
             }
 
-            zoomIn() {
-                this.ui.zoomIn();
-            }
-
-            zoomOut() {
-                this.ui.zoomOut();
-            }
+            zoomIn() { this.ui.zoomIn(); }
+            zoomOut() { this.ui.zoomOut(); }
 
             newProject() {
                 this.ui.tracks = {};
                 this.ui.notes = [];
+                this.audioEngine.instruments = {};
+                this.audioEngine.instrumentCounter = 0;
+                this.audioEngine.initDefaultInstruments();
                 this.ui.initTracks();
                 this.ui.initMixer();
                 this.ui.initSequencerUI();
@@ -1486,18 +1557,19 @@
                 const project = {
                     tracks: this.ui.tracks,
                     notes: this.ui.notes,
+                    instruments: this.audioEngine.instruments,
+                    instrumentCounter: this.audioEngine.instrumentCounter,
                     bpm: this.sequencer.bpm,
                     loop: this.sequencer.loop,
                     snap: this.ui.snap,
-                    waveform: this.ui.waveform,
                     zoom: this.ui.zoom
                 };
-                localStorage.setItem('flStudioProject', JSON.stringify(project));
+                localStorage.setItem('flStudioProjectV3', JSON.stringify(project));
                 alert('项目已保存');
             }
 
             loadProject() {
-                const saved = localStorage.getItem('flStudioProject');
+                const saved = localStorage.getItem('flStudioProjectV3');
                 if (!saved) {
                     alert('没有找到保存的项目');
                     return;
@@ -1505,10 +1577,11 @@
                 const project = JSON.parse(saved);
                 this.ui.tracks = project.tracks;
                 this.ui.notes = project.notes;
+                this.audioEngine.instruments = project.instruments;
+                this.audioEngine.instrumentCounter = project.instrumentCounter;
                 this.sequencer.setBPM(project.bpm);
                 this.sequencer.setLoop(project.loop);
                 this.ui.setSnap(project.snap);
-                this.ui.setWaveform(project.waveform);
                 this.ui.zoom = project.zoom;
                 
                 this.setBPM(project.bpm);
@@ -1530,30 +1603,7 @@
                 masterGain.gain.value = 0.8;
                 masterGain.connect(offlineCtx.destination);
 
-                const drumBuffers = {};
-                for (const name of ['kick', 'snare', 'hihat', 'synth']) {
-                    const buffer = await this.generateDrumSampleOffline(offlineCtx, name);
-                    drumBuffers[name] = buffer;
-                }
-
                 const stepDuration = 60 / (this.sequencer.bpm * 4);
-                const totalDuration = this.sequencer.totalSteps * stepDuration;
-
-                for (const trackId in this.ui.tracks) {
-                    const track = this.ui.tracks[trackId];
-                    if (track.mute) continue;
-
-                    if (track.type === 'step') {
-                        for (let step = 0; step < 16; step++) {
-                            if (track.steps[step]) {
-                                for (let bar = 0; bar < 4; bar++) {
-                                    const startTime = (bar * 16 + step) * stepDuration;
-                                    this.playDrumOffline(offlineCtx, drumBuffers[track.instrument], startTime, track, masterGain);
-                                }
-                            }
-                        }
-                    }
-                }
 
                 for (const note of this.ui.notes) {
                     const track = this.ui.tracks[note.trackId];
@@ -1562,84 +1612,45 @@
                     const freq = 440 * Math.pow(2, (note.pitch - 69) / 12);
                     const startTime = note.startStep * stepDuration;
                     const duration = note.durationSteps * stepDuration;
-                    this.playNoteOffline(offlineCtx, freq, startTime, duration, track, masterGain);
+                    const inst = this.audioEngine.getInstrument(note.instrumentId);
+                    
+                    if (inst) {
+                        this.playNoteOffline(offlineCtx, freq, startTime, duration, track, inst, masterGain);
+                    }
                 }
 
                 const renderedBuffer = await offlineCtx.startRendering();
                 this.downloadWAV(renderedBuffer);
             }
 
-            generateDrumSampleOffline(ctx, name) {
-                return new Promise((resolve) => {
-                    const configs = {
-                        kick: { freq: 60, duration: 0.5 },
-                        snare: { freq: 200, duration: 0.2 },
-                        hihat: { freq: 800, duration: 0.05 },
-                        synth: { freq: 440, duration: 0.3 }
-                    };
-                    const config = configs[name];
-                    const sampleRate = ctx.sampleRate;
-                    const duration = config.duration;
-                    const bufferSize = sampleRate * duration;
-                    const buffer = ctx.createBuffer(1, bufferSize, sampleRate);
-                    const data = buffer.getChannelData(0);
-
-                    for (let i = 0; i < bufferSize; i++) {
-                        const t = i / sampleRate;
-                        if (name === 'kick') {
-                            const freq = config.freq * Math.exp(-t * 15);
-                            data[i] = Math.sin(2 * Math.PI * freq * t) * Math.exp(-t * 10) * 0.8;
-                        } else if (name === 'snare') {
-                            const noise = (Math.random() * 2 - 1) * Math.exp(-t * 20);
-                            const tone = Math.sin(2 * Math.PI * config.freq * t) * Math.exp(-t * 8);
-                            data[i] = (noise + tone) * 0.5;
-                        } else if (name === 'hihat') {
-                            const noise = (Math.random() * 2 - 1);
-                            data[i] = noise * Math.exp(-t * 50) * 0.6;
-                        } else {
-                            data[i] = Math.sin(2 * Math.PI * config.freq * t) * Math.exp(-t * 3) * 0.5;
-                        }
-                    }
-                    resolve(buffer);
-                });
-            }
-
-            playDrumOffline(ctx, buffer, startTime, track, masterGain) {
-                const source = ctx.createBufferSource();
-                const gainNode = ctx.createGain();
-                const panNode = ctx.createStereoPanner();
-
-                source.buffer = buffer;
-                gainNode.gain.setValueAtTime(track.volume * 0.8, startTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + buffer.duration);
-                panNode.pan.value = track.pan;
-
-                source.connect(gainNode);
-                gainNode.connect(panNode);
-                panNode.connect(masterGain);
-                source.start(startTime);
-            }
-
-            playNoteOffline(ctx, freq, startTime, duration, track, masterGain) {
+            playNoteOffline(ctx, freq, startTime, duration, track, inst, masterGain) {
                 const osc = ctx.createOscillator();
-                const gainNode = ctx.createGain();
+                const envelope = ctx.createGain();
+                const filter = ctx.createBiquadFilter();
                 const panNode = ctx.createStereoPanner();
 
-                osc.type = this.ui.waveform;
+                osc.type = inst.waveform || 'sine';
                 osc.frequency.value = freq;
 
-                gainNode.gain.setValueAtTime(0, startTime);
-                gainNode.gain.linearRampToValueAtTime(track.volume * 0.5, startTime + 0.01);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+                envelope.gain.setValueAtTime(0, startTime);
+                envelope.gain.linearRampToValueAtTime(track.volume * 0.5, startTime + inst.attack);
+                envelope.gain.linearRampToValueAtTime(track.volume * 0.5 * inst.sustain, startTime + inst.attack + inst.decay);
+                envelope.gain.setValueAtTime(track.volume * 0.5 * inst.sustain, startTime + duration - inst.release);
+                envelope.gain.linearRampToValueAtTime(0, startTime + duration);
+
+                filter.type = inst.filterType;
+                filter.frequency.value = inst.filterFreq;
+                filter.Q.value = inst.filterQ;
 
                 panNode.pan.value = track.pan;
 
-                osc.connect(gainNode);
-                gainNode.connect(panNode);
+                osc.connect(envelope);
+                envelope.connect(filter);
+                filter.connect(panNode);
                 panNode.connect(masterGain);
 
                 osc.start(startTime);
-                osc.stop(startTime + duration);
+                osc.stop(startTime + duration + 0.1);
             }
 
             downloadWAV(buffer) {
@@ -1682,7 +1693,7 @@
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `fl-studio-project-${Date.now()}.wav`;
+                a.download = `fl-studio-v3-${Date.now()}.wav`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -1691,15 +1702,174 @@
 
             toggleMixer() {
                 const mixer = document.querySelector('.mixer-panel');
-                if (mixer.style.width === '0px' || mixer.style.width === '') {
-                    mixer.style.width = '280px';
-                } else {
-                    mixer.style.width = '0px';
-                }
+                mixer.style.width = mixer.style.width === '0px' ? '350px' : '0px';
             }
         }
 
         const app = new App();
+
+        // ========== Electron 桌面应用集成 ==========
+        // 检测是否在 Electron 环境中运行
+        const isElectron = typeof window !== 'undefined' && typeof window.electronAPI !== 'undefined';
+
+        if (isElectron) {
+            // 当前项目文件路径
+            let currentFilePath = null;
+
+            // 监听菜单操作
+            window.electronAPI.onMenuAction((action) => {
+                switch (action) {
+                    case 'newProject':
+                        app.newProject();
+                        currentFilePath = null;
+                        break;
+                    case 'saveProject':
+                        if (currentFilePath) {
+                            saveToFilePath(currentFilePath);
+                        } else {
+                            saveProjectAsDesktop();
+                        }
+                        break;
+                    case 'exportAudio':
+                        app.exportAudio();
+                        break;
+                    case 'zoomIn':
+                        app.zoomIn();
+                        break;
+                    case 'zoomOut':
+                        app.zoomOut();
+                        break;
+                    case 'switchPiano':
+                        app.ui.switchView('piano');
+                        break;
+                    case 'switchStep':
+                        app.ui.switchView('step');
+                        break;
+                    case 'togglePlay':
+                        if (app.sequencer.isPlaying) {
+                            app.stop();
+                        } else {
+                            app.play();
+                        }
+                        break;
+                    case 'stop':
+                        app.stop();
+                        break;
+                    case 'bpmUp':
+                        const newBpmUp = Math.min(200, app.sequencer.bpm + 5);
+                        app.setBPM(newBpmUp);
+                        break;
+                    case 'bpmDown':
+                        const newBpmDown = Math.max(60, app.sequencer.bpm - 5);
+                        app.setBPM(newBpmDown);
+                        break;
+                }
+            });
+
+            // 监听项目加载
+            window.electronAPI.onLoadProject((project, filePath) => {
+                loadProjectFromData(project, filePath);
+            });
+
+            // 监听保存请求
+            window.electronAPI.onGetProjectData((filePath) => {
+                saveToFilePath(filePath);
+            });
+
+            // 加载项目数据
+            function loadProjectFromData(project, filePath) {
+                app.ui.tracks = project.tracks;
+                app.ui.notes = project.notes;
+                app.audioEngine.instruments = project.instruments;
+                app.audioEngine.instrumentCounter = project.instrumentCounter;
+                app.sequencer.setBPM(project.bpm);
+                app.sequencer.setLoop(project.loop);
+                app.ui.setSnap(project.snap);
+                app.ui.zoom = project.zoom;
+                
+                app.setBPM(project.bpm);
+                document.getElementById('loopToggle').checked = project.loop;
+                
+                app.ui.initMixer();
+                app.ui.initSequencerUI();
+                app.ui.drawPianoRoll();
+                app.stop();
+                
+                currentFilePath = filePath;
+                document.title = `FL Studio Editor - ${filePath.split('/').pop()}`;
+            }
+
+            // 另存为
+            async function saveProjectAsDesktop() {
+                const result = await window.electronAPI.showSaveDialog({
+                    title: '保存项目',
+                    filters: [
+                        { name: '音乐项目', extensions: ['flproj'] },
+                        { name: 'JSON 文件', extensions: ['json'] }
+                    ],
+                    defaultPath: '未命名项目.flproj'
+                });
+
+                if (!result.canceled && result.filePath) {
+                    await saveToFilePath(result.filePath);
+                }
+            }
+
+            // 保存到指定路径
+            async function saveToFilePath(filePath) {
+                const project = {
+                    tracks: app.ui.tracks,
+                    notes: app.ui.notes,
+                    instruments: app.audioEngine.instruments,
+                    instrumentCounter: app.audioEngine.instrumentCounter,
+                    bpm: app.sequencer.bpm,
+                    loop: app.sequencer.loop,
+                    snap: app.ui.snap,
+                    zoom: app.ui.zoom
+                };
+
+                const result = await window.electronAPI.saveProjectFile(filePath, project);
+                if (result.success) {
+                    currentFilePath = filePath;
+                    document.title = `FL Studio Editor - ${filePath.split('/').pop()}`;
+                    alert('项目已保存');
+                } else {
+                    alert('保存失败：' + result.error);
+                }
+            }
+
+            // 键盘快捷键
+            document.addEventListener('keydown', (e) => {
+                // 空格键播放/暂停
+                if (e.code === 'Space' && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    if (app.sequencer.isPlaying) {
+                        app.stop();
+                    } else {
+                        app.play();
+                    }
+                }
+                // Escape 停止
+                if (e.code === 'Escape') {
+                    app.stop();
+                }
+            });
+        } else {
+            // 浏览器环境的键盘快捷键
+            document.addEventListener('keydown', (e) => {
+                if (e.code === 'Space' && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    if (app.sequencer.isPlaying) {
+                        app.stop();
+                    } else {
+                        app.play();
+                    }
+                }
+                if (e.code === 'Escape') {
+                    app.stop();
+                }
+            });
+        }
     </script>
 </body>
 </html>
