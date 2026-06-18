@@ -173,13 +173,36 @@ void MainWindow::setupToolBar() {
         "}"
     );
 
+    // Add stretch to push controls to the right
+    QWidget* spacer = new QWidget();
+    spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    toolBar->addWidget(spacer);
+
     // Snap selector
-    toolBar->addWidget(new QLabel("网格: "));
+    QLabel* snapLabel = new QLabel("网格:", this);
+    snapLabel->setStyleSheet("color: #888; font-size: 12px;");
+    toolBar->addWidget(snapLabel);
+    
     QComboBox* snapCombo = new QComboBox(toolBar);
     snapCombo->addItem("1/4", 4);
     snapCombo->addItem("1/8", 8);
     snapCombo->addItem("1/16", 16);
     snapCombo->setCurrentIndex(2);
+    snapCombo->setFixedWidth(80);
+    snapCombo->setStyleSheet(
+        "QComboBox {"
+        "background: #333;"
+        "border: 1px solid #444;"
+        "border-radius: 4px;"
+        "color: #e0e0e0;"
+        "padding: 4px;"
+        "font-size: 12px;"
+        "}"
+        "QComboBox QAbstractItemView {"
+        "background: #333;"
+        "color: #e0e0e0;"
+        "}"
+    );
     connect(snapCombo, QOverload<int>::of(&QComboBox::currentIndexChanged), this, [this, snapCombo](int) {
         int snap = snapCombo->currentData().toInt();
         m_pianoRoll->setSnap(snap);
@@ -191,11 +214,35 @@ void MainWindow::setupToolBar() {
     // Zoom buttons
     QPushButton* zoomInBtn = new QPushButton("+", toolBar);
     zoomInBtn->setFixedSize(28, 28);
+    zoomInBtn->setStyleSheet(
+        "QPushButton {"
+        "background: #333;"
+        "border: 1px solid #444;"
+        "border-radius: 4px;"
+        "color: #e0e0e0;"
+        "font-size: 14px;"
+        "}"
+        "QPushButton:hover {"
+        "background: #444;"
+        "}"
+    );
     connect(zoomInBtn, &QPushButton::clicked, m_pianoRoll, &PianoRollWidget::zoomIn);
     toolBar->addWidget(zoomInBtn);
 
     QPushButton* zoomOutBtn = new QPushButton("-", toolBar);
     zoomOutBtn->setFixedSize(28, 28);
+    zoomOutBtn->setStyleSheet(
+        "QPushButton {"
+        "background: #333;"
+        "border: 1px solid #444;"
+        "border-radius: 4px;"
+        "color: #e0e0e0;"
+        "font-size: 14px;"
+        "}"
+        "QPushButton:hover {"
+        "background: #444;"
+        "}"
+    );
     connect(zoomOutBtn, &QPushButton::clicked, m_pianoRoll, &PianoRollWidget::zoomOut);
     toolBar->addWidget(zoomOutBtn);
 }

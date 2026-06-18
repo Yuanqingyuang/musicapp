@@ -161,114 +161,68 @@ void InstrumentEditor::setupUI() {
     adsrTitle->setStyleSheet("color: #888; font-size: 11px; margin-top: 8px;");
     mainLayout->addWidget(adsrTitle);
 
-    QGridLayout* adsrLayout = new QGridLayout();
-    adsrLayout->setSpacing(8);
+    QString sliderStyle =
+        "QSlider::groove:horizontal {"
+        "height: 6px;"
+        "background: #333;"
+        "border-radius: 3px;"
+        "}"
+        "QSlider::handle:horizontal {"
+        "width: 14px;"
+        "height: 14px;"
+        "background: #2196F3;"
+        "border: 2px solid #fff;"
+        "border-radius: 7px;"
+        "margin: -4px 0;"
+        "}";
 
-    // Attack
+    // Attack row
+    QHBoxLayout* attackRow = new QHBoxLayout();
     QLabel* attackLabel = new QLabel("Attack", this);
-    attackLabel->setStyleSheet("color: #888; font-size: 10px;");
-    adsrLayout->addWidget(attackLabel, 0, 0);
-
-    m_attackSlider = new QSlider(Qt::Vertical, this);
+    attackLabel->setStyleSheet("color: #888; font-size: 10px; width: 40px;");
+    attackRow->addWidget(attackLabel);
+    m_attackSlider = new QSlider(Qt::Horizontal, this);
     m_attackSlider->setRange(0, 100);
-    m_attackSlider->setFixedHeight(60);
-    m_attackSlider->setStyleSheet(
-        "QSlider::groove:vertical {"
-        "width: 8px;"
-        "background: #333;"
-        "border-radius: 4px;"
-        "}"
-        "QSlider::handle:vertical {"
-        "width: 16px;"
-        "height: 16px;"
-        "background: #2196F3;"
-        "border: 2px solid #fff;"
-        "border-radius: 8px;"
-        "margin: 0 -4px;"
-        "}"
-    );
+    m_attackSlider->setStyleSheet(sliderStyle);
     connect(m_attackSlider, &QSlider::valueChanged, this, &InstrumentEditor::onADSRChanged);
-    adsrLayout->addWidget(m_attackSlider, 1, 0, Qt::AlignCenter);
+    attackRow->addWidget(m_attackSlider);
+    mainLayout->addLayout(attackRow);
 
-    // Decay
+    // Decay row
+    QHBoxLayout* decayRow = new QHBoxLayout();
     QLabel* decayLabel = new QLabel("Decay", this);
-    decayLabel->setStyleSheet("color: #888; font-size: 10px;");
-    adsrLayout->addWidget(decayLabel, 0, 1);
-
-    m_decaySlider = new QSlider(Qt::Vertical, this);
+    decayLabel->setStyleSheet("color: #888; font-size: 10px; width: 40px;");
+    decayRow->addWidget(decayLabel);
+    m_decaySlider = new QSlider(Qt::Horizontal, this);
     m_decaySlider->setRange(0, 100);
-    m_decaySlider->setFixedHeight(60);
-    m_decaySlider->setStyleSheet(
-        "QSlider::groove:vertical {"
-        "width: 8px;"
-        "background: #333;"
-        "border-radius: 4px;"
-        "}"
-        "QSlider::handle:vertical {"
-        "width: 16px;"
-        "height: 16px;"
-        "background: #2196F3;"
-        "border: 2px solid #fff;"
-        "border-radius: 8px;"
-        "margin: 0 -4px;"
-        "}"
-    );
+    m_decaySlider->setStyleSheet(sliderStyle);
     connect(m_decaySlider, &QSlider::valueChanged, this, &InstrumentEditor::onADSRChanged);
-    adsrLayout->addWidget(m_decaySlider, 1, 1, Qt::AlignCenter);
+    decayRow->addWidget(m_decaySlider);
+    mainLayout->addLayout(decayRow);
 
-    // Sustain
+    // Sustain row
+    QHBoxLayout* sustainRow = new QHBoxLayout();
     QLabel* sustainLabel = new QLabel("Sustain", this);
-    sustainLabel->setStyleSheet("color: #888; font-size: 10px;");
-    adsrLayout->addWidget(sustainLabel, 0, 2);
-
-    m_sustainSlider = new QSlider(Qt::Vertical, this);
+    sustainLabel->setStyleSheet("color: #888; font-size: 10px; width: 40px;");
+    sustainRow->addWidget(sustainLabel);
+    m_sustainSlider = new QSlider(Qt::Horizontal, this);
     m_sustainSlider->setRange(0, 100);
-    m_sustainSlider->setFixedHeight(60);
-    m_sustainSlider->setStyleSheet(
-        "QSlider::groove:vertical {"
-        "width: 8px;"
-        "background: #333;"
-        "border-radius: 4px;"
-        "}"
-        "QSlider::handle:vertical {"
-        "width: 16px;"
-        "height: 16px;"
-        "background: #2196F3;"
-        "border: 2px solid #fff;"
-        "border-radius: 8px;"
-        "margin: 0 -4px;"
-        "}"
-    );
+    m_sustainSlider->setStyleSheet(sliderStyle);
     connect(m_sustainSlider, &QSlider::valueChanged, this, &InstrumentEditor::onADSRChanged);
-    adsrLayout->addWidget(m_sustainSlider, 1, 2, Qt::AlignCenter);
+    sustainRow->addWidget(m_sustainSlider);
+    mainLayout->addLayout(sustainRow);
 
-    // Release
+    // Release row
+    QHBoxLayout* releaseRow = new QHBoxLayout();
     QLabel* releaseLabel = new QLabel("Release", this);
-    releaseLabel->setStyleSheet("color: #888; font-size: 10px;");
-    adsrLayout->addWidget(releaseLabel, 0, 3);
-
-    m_releaseSlider = new QSlider(Qt::Vertical, this);
+    releaseLabel->setStyleSheet("color: #888; font-size: 10px; width: 40px;");
+    releaseRow->addWidget(releaseLabel);
+    m_releaseSlider = new QSlider(Qt::Horizontal, this);
     m_releaseSlider->setRange(0, 100);
-    m_releaseSlider->setFixedHeight(60);
-    m_releaseSlider->setStyleSheet(
-        "QSlider::groove:vertical {"
-        "width: 8px;"
-        "background: #333;"
-        "border-radius: 4px;"
-        "}"
-        "QSlider::handle:vertical {"
-        "width: 16px;"
-        "height: 16px;"
-        "background: #2196F3;"
-        "border: 2px solid #fff;"
-        "border-radius: 8px;"
-        "margin: 0 -4px;"
-        "}"
-    );
+    m_releaseSlider->setStyleSheet(sliderStyle);
     connect(m_releaseSlider, &QSlider::valueChanged, this, &InstrumentEditor::onADSRChanged);
-    adsrLayout->addWidget(m_releaseSlider, 1, 3, Qt::AlignCenter);
-
-    mainLayout->addLayout(adsrLayout);
+    releaseRow->addWidget(m_releaseSlider);
+    mainLayout->addLayout(releaseRow);
 
     // Filter section
     QLabel* filterTitle = new QLabel("滤波器", this);
