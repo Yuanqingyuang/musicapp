@@ -1,0 +1,11 @@
+Architecture: amd64
+Depends: libqt6widgets6, libqt6gui6, libqt6core6, libqt6multimedia6, libqt6network6, libqt6dbus6, libstdc++6, libc6
+Description: FL Studio style music editor - v5 Qt6 native desktop application
+ A FL Studio style music editing software with piano roll, step sequencer, mixer, transport controls, project management, and WAV export. Built with C++17 and Qt6.
+Maintainer: FLStudioEditor Developer
+Package: flstudio-editor
+Priority: optional
+Section: sound
+Version: 5.0.0
+Installed-Size: 687
+

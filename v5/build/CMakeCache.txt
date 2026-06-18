@@ -163,6 +163,9 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 //Path to a program.
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
+//No help, variable specified on the command line.
+CMAKE_PREFIX_PATH:UNINITIALIZED=/usr/lib/x86_64-linux-gnu/cmake
+
 //Value Computed by CMake
 CMAKE_PROJECT_DESCRIPTION:STATIC=
 
@@ -252,6 +255,24 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Enable to build RPM source packages
+CPACK_SOURCE_RPM:BOOL=OFF
+
+//Enable to build TBZ2 source packages
+CPACK_SOURCE_TBZ2:BOOL=ON
+
+//Enable to build TGZ source packages
+CPACK_SOURCE_TGZ:BOOL=ON
+
+//Enable to build TXZ source packages
+CPACK_SOURCE_TXZ:BOOL=ON
+
+//Enable to build TZ source packages
+CPACK_SOURCE_TZ:BOOL=ON
+
+//Enable to build ZIP source packages
+CPACK_SOURCE_ZIP:BOOL=OFF
+
 //Value Computed by CMake
 FLStudioEditor_BINARY_DIR:STATIC=/workspace/v5/build
 
@@ -262,13 +283,13 @@ FLStudioEditor_IS_TOP_LEVEL:STATIC=ON
 FLStudioEditor_SOURCE_DIR:STATIC=/workspace/v5
 
 //Path to a file.
-OPENGL_EGL_INCLUDE_DIR:PATH=/usr/include
+OPENGL_EGL_INCLUDE_DIR:PATH=OPENGL_EGL_INCLUDE_DIR-NOTFOUND
 
 //Path to a file.
-OPENGL_GLES2_INCLUDE_DIR:PATH=/usr/include
+OPENGL_GLES2_INCLUDE_DIR:PATH=OPENGL_GLES2_INCLUDE_DIR-NOTFOUND
 
 //Path to a file.
-OPENGL_GLES3_INCLUDE_DIR:PATH=/usr/include
+OPENGL_GLES3_INCLUDE_DIR:PATH=OPENGL_GLES3_INCLUDE_DIR-NOTFOUND
 
 //Path to a file.
 OPENGL_GLX_INCLUDE_DIR:PATH=/usr/include
@@ -277,13 +298,13 @@ OPENGL_GLX_INCLUDE_DIR:PATH=/usr/include
 OPENGL_INCLUDE_DIR:PATH=/usr/include
 
 //Path to a library.
-OPENGL_egl_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libEGL.so
+OPENGL_egl_LIBRARY:FILEPATH=OPENGL_egl_LIBRARY-NOTFOUND
 
 //Path to a library.
-OPENGL_gles2_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libGLESv2.so
+OPENGL_gles2_LIBRARY:FILEPATH=OPENGL_gles2_LIBRARY-NOTFOUND
 
 //Path to a library.
-OPENGL_gles3_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/libGLESv2.so
+OPENGL_gles3_LIBRARY:FILEPATH=OPENGL_gles3_LIBRARY-NOTFOUND
 
 //Path to a library.
 OPENGL_glu_LIBRARY:FILEPATH=OPENGL_glu_LIBRARY-NOTFOUND
@@ -529,6 +550,18 @@ CMAKE_TAPI-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_RPM
+CPACK_SOURCE_RPM-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TBZ2
+CPACK_SOURCE_TBZ2-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TGZ
+CPACK_SOURCE_TGZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TXZ
+CPACK_SOURCE_TXZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_TZ
+CPACK_SOURCE_TZ-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CPACK_SOURCE_ZIP
+CPACK_SOURCE_ZIP-ADVANCED:INTERNAL=1
 //Details about finding OpenGL
 FIND_PACKAGE_MESSAGE_DETAILS_OpenGL:INTERNAL=[/usr/lib/x86_64-linux-gnu/libOpenGL.so][/usr/lib/x86_64-linux-gnu/libGLX.so][/usr/include][c ][v()]
 //Details about finding Threads

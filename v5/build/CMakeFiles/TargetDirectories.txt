@@ -1,4 +1,6 @@
 /workspace/v5/build/CMakeFiles/FLStudioEditor.dir
+/workspace/v5/build/CMakeFiles/package.dir
+/workspace/v5/build/CMakeFiles/package_source.dir
 /workspace/v5/build/CMakeFiles/edit_cache.dir
 /workspace/v5/build/CMakeFiles/rebuild_cache.dir
 /workspace/v5/build/CMakeFiles/list_install_components.dir

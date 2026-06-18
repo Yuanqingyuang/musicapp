@@ -77,3 +77,25 @@ install(TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION bin
     BUNDLE DESTINATION .
 )
+
+# CPack configuration for Debian package
+set(CPACK_PACKAGE_NAME "flstudio-editor")
+set(CPACK_PACKAGE_VENDOR "FLStudioEditor")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "FL Studio style music editor - v5 Qt6 native desktop application")
+set(CPACK_PACKAGE_DESCRIPTION "A FL Studio style music editing software with piano roll, step sequencer, mixer, transport controls, project management, and WAV export. Built with C++17 and Qt6.")
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "FLStudioEditor")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+set(CPACK_PACKAGE_CONTACT "developer@flstudio-editor.local")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "FLStudioEditor Developer")
+set(CPACK_DEBIAN_PACKAGE_SECTION "sound")
+set(CPACK_DEBIAN_PACKAGE_PRIORITY "optional")
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libqt6widgets6, libqt6gui6, libqt6core6, libqt6multimedia6, libqt6network6, libqt6dbus6, libstdc++6, libc6")
+set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE "amd64")
+set(CPACK_DEBIAN_FILE_NAME "DEB-DEFAULT")
+set(CPACK_GENERATOR "DEB;TGZ")
+
+include(CPack)

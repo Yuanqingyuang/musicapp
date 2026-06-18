@@ -1,0 +1,1 @@
+/workspace/v5/build/_CPack_Packages/Linux/TGZ/flstudio-editor-5.0.0-Linux/bin/FLStudioEditor
