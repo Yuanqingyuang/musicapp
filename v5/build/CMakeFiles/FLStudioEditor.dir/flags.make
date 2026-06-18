@@ -6,5 +6,5 @@ CXX_DEFINES = -DQT_CORE_LIB -DQT_GUI_LIB -DQT_MULTIMEDIA_LIB -DQT_NETWORK_LIB -D
 
 CXX_INCLUDES = -I/workspace/v5/build/FLStudioEditor_autogen/include -I/workspace/v5/include -isystem /usr/include/x86_64-linux-gnu/qt6/QtCore -isystem /usr/include/x86_64-linux-gnu/qt6 -isystem /usr/lib/x86_64-linux-gnu/qt6/mkspecs/linux-g++ -isystem /usr/include/x86_64-linux-gnu/qt6/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt6/QtGui -isystem /usr/include/x86_64-linux-gnu/qt6/QtMultimedia -isystem /usr/include/x86_64-linux-gnu/qt6/QtNetwork
 
-CXX_FLAGS = -std=gnu++17 -fPIC
+CXX_FLAGS = -std=gnu++17 -fPIE -fPIC
 

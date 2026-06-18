@@ -110,68 +110,242 @@ export PATH="/opt/homebrew/opt/qt@6/bin:$PATH"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/qt@6/lib/pkgconfig:$PKG_CONFIG_PATH"
 ```
 
-### Windows (vcpkg)
+### Windows (推荐方式)
+
+**方法 A：使用 Qt 官方安装包（推荐新手）**
+
+1. 下载 Qt Online Installer：https://www.qt.io/download-qt-installer
+2. 安装时选择：
+   - Qt 6.5+（推荐 6.4 或更高）
+   - MSVC 2022（64 位）组件
+   - CMake 和 Ninja 构建工具
+3. 安装完成后设置环境变量（根据实际安装路径调整）：
+
+```cmd
+:: 在命令行中临时设置
+set PATH=C:\Qt\6.7.0\msvc2019_64\bin;%PATH%
+set CMAKE_PREFIX_PATH=C:\Qt\6.7.0\msvc2019_64
+
+:: 或者通过系统设置永久添加环境变量
+```
+
+**方法 B：使用 MSYS2**
 
 ```bash
+# 安装 MSYS2 后，在 MSYS2 终端运行
+pacman -S mingw-w64-x86_64-qt6 mingw-w64-x86_64-cmake mingw-w64-x86_64-toolchain
+```
+
+**方法 C：使用 vcpkg**
+
+```powershell
 # 安装 vcpkg（如果尚未安装）
 git clone https://github.com/Microsoft/vcpkg.git
 cd vcpkg
-./bootstrap-vcpkg.bat
+.\bootstrap-vcpkg.bat
 
-# 安装 Qt6
+# 安装 Qt6（这会花费较长时间）
 vcpkg install qtbase:x64-windows qtmultimedia:x64-windows
+
+# 构建时使用
+cmake .. -DCMAKE_TOOLCHAIN_FILE=C:\path\to\vcpkg\scripts\buildsystems\vcpkg.cmake
 ```
 
-或者使用 Qt 官方安装包：
-1. 下载 Qt Online Installer：https://www.qt.io/download-qt-installer
-2. 安装时选择 Qt 6.5+ 和 MSVC 2022 组件
-3. 设置 QTDIR 环境变量
+**Windows 编译环境要求：**
+- Visual Studio 2022（含 MSVC 14.3+）或 MinGW-w64
+- CMake 3.16+
+- Qt 6.0+（推荐 6.4+）
+
+**快速一键构建（项目提供的脚本）：**
+```cmd
+:: 方式 1: 使用批处理脚本
+cd v5
+build_windows.bat
+
+:: 方式 2: 使用 PowerShell 脚本（功能更完整）
+cd v5
+powershell -ExecutionPolicy Bypass -File .\build_windows.ps1
+```
 
 ---
 
 ## 构建步骤
 
-### 标准构建流程
+---
 
-```bash
-# 1. 进入 v5 目录
+### 🪟 Windows 构建指南
+
+**方式 A：使用项目脚本（推荐）**
+
+```cmd
+:: 打开 "x64 Native Tools Command Prompt for VS 2022" 或普通 cmd
 cd v5
 
-# 2. 创建并进入构建目录
-mkdir -p build
-cd build
+:: 确保 Qt6 的 bin 目录在 PATH 中
+set PATH=C:\Qt\6.7.0\msvc2019_64\bin;%PATH%
 
-# 3. 运行 CMake 配置
-cmake ..
-
-# 4. 编译项目（使用多核加速）
-cmake --build . -j$(nproc)
-
-# 5. 运行程序
-./FLStudioEditor      # Linux/macOS
-.\FLStudioEditor.exe  # Windows
+:: 一键构建
+build_windows.bat
 ```
 
-### Qt 路径配置
+构建完成后，可执行文件位于 `v5\build-windows\Release\FLStudioEditor.exe`
 
-如果 CMake 找不到 Qt6，需要指定 Qt 安装路径：
+**方式 B：手动构建**
 
-```bash
-# 使用 qt6-cmake 工具查找
-cmake .. -DCMAKE_PREFIX_PATH=$(qt6-cmake --prefix)
+```cmd
+cd v5
+mkdir build-windows
+cd build-windows
 
-# 或者手动指定
-cmake .. -DCMAKE_PREFIX_PATH=/path/to/qt6
+:: 配置项目
+cmake .. -DCMAKE_PREFIX_PATH=C:\Qt\6.7.0\msvc2019_64
+
+:: 编译（Release 版本）
+cmake --build . --config Release --parallel
+
+:: 运行程序
+.\Release\FLStudioEditor.exe
 ```
 
-### Qt Creator IDE
+**方式 C：使用 Qt Creator IDE**
 
 1. 打开 Qt Creator
 2. File → Open File or Project
 3. 选择 `v5/CMakeLists.txt`
-4. 配置 Kit（选择 Qt6 版本）
+4. 配置 Kit（选择 MSVC2022/MinGW + Qt6）
 5. 点击 Configure Project
 6. 点击 Run（Ctrl+R）编译并运行
+
+---
+
+### 🐧 Linux 构建指南
+
+```bash
+# 1. 安装依赖
+sudo apt update
+sudo apt install -y build-essential cmake qt6-base-dev qt6-multimedia-dev
+
+# 2. 进入 v5 目录并构建
+cd v5
+mkdir -p build
+cd build
+cmake ..
+cmake --build . -j$(nproc)
+
+# 3. 运行程序
+./FLStudioEditor
+```
+
+---
+
+### 🍎 macOS 构建指南
+
+```bash
+# 1. 安装依赖
+brew install cmake qt@6
+
+# 2. 配置环境变量
+export PATH="/opt/homebrew/opt/qt@6/bin:$PATH"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/qt@6/lib/pkgconfig:$PKG_CONFIG_PATH"
+
+# 3. 构建
+cd v5
+mkdir -p build
+cd build
+cmake ..
+cmake --build . -j$(sysctl -n hw.logicalcpu)
+
+# 4. 运行
+./FLStudioEditor
+```
+
+---
+
+## 打包与发布
+
+### Windows 打包
+
+**创建可分发的 ZIP 包（包含所有 Qt 运行时库）：**
+
+```powershell
+# 先构建项目
+cd v5
+.\build_windows.bat
+
+# 使用部署脚本（自动运行 windeployqt 并打包）
+powershell -ExecutionPolicy Bypass -File .\deploy_windows.ps1
+```
+
+部署脚本会：
+1. 查找并运行 `windeployqt.exe`，自动复制所有需要的 Qt DLL 和插件
+2. 复制可执行文件到 `dist-windows/` 目录
+3. 创建 `FLStudioEditor-windows-x64.zip` 发布包
+
+**使用 CPack 创建 NSIS 安装包（.exe 安装程序）：**
+
+```cmd
+cd build-windows
+cpack -C Release
+```
+
+这会生成：
+- `flstudio-editor-5.0.0-win64.exe` - NSIS 安装程序
+- `flstudio-editor-5.0.0-win64.zip` - 压缩包
+
+**用户运行时要求：**
+- Windows 10/11
+- 可能需要安装 Visual C++ Redistributable（如果构建时使用了 MSVC）
+
+---
+
+### Linux 打包
+
+**Debian/Ubuntu (.deb) 和压缩包 (.tar.gz)：**
+
+```bash
+cd v5/build
+cmake ..
+cmake --build . -j$(nproc)
+
+# 生成 .deb 和 .tar.gz
+cpack
+```
+
+**测试运行生成的安装包：**
+
+```bash
+# 安装 .deb
+sudo dpkg -i flstudio-editor_5.0.0_amd64.deb
+sudo apt-get install -f   # 修复依赖
+
+# 运行
+FLStudioEditor
+
+# 卸载
+sudo dpkg -r flstudio-editor
+```
+
+**也可以直接运行编译好的可执行文件：**
+```bash
+./FLStudioEditor
+```
+
+---
+
+### Qt 路径配置（通用）
+
+如果 CMake 找不到 Qt6，需要指定 Qt 安装路径：
+
+```bash
+# Linux
+cmake .. -DCMAKE_PREFIX_PATH=/usr/lib/x86_64-linux-gnu/cmake/Qt6
+
+# macOS (Homebrew)
+cmake .. -DCMAKE_PREFIX_PATH=$(brew --prefix qt@6)
+
+# Windows
+cmake .. -DCMAKE_PREFIX_PATH=C:\Qt\6.7.0\msvc2019_64
+```
 
 ---
 

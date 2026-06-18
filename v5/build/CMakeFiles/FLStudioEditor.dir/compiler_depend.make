@@ -584,24 +584,81 @@ FLStudioEditor_autogen/timestamp: /usr/bin/cmake \
   /usr/lib/x86_64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets-none.cmake \
   /usr/lib/x86_64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsTargets.cmake \
   /usr/lib/x86_64-linux-gnu/cmake/Qt6WidgetsTools/Qt6WidgetsToolsVersionlessTargets.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeCXXCompiler.cmake.in \
+  /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp \
   /usr/share/cmake-3.28/Modules/CMakeCXXInformation.cmake \
   /usr/share/cmake-3.28/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake \
   /usr/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeCompilerIdDetection.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeDetermineCompileFeatures.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeDetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeFindBinUtils.cmake \
   /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake \
   /usr/share/cmake-3.28/Modules/CMakeGenericSystem.cmake \
   /usr/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake \
   /usr/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeParseImplicitIncludeInfo.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeParseImplicitLinkInfo.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeParseLibraryArchitecture.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeSystem.cmake.in \
   /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake \
   /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeTestCompilerCommon.cmake \
+  /usr/share/cmake-3.28/Modules/CMakeUnixFindMake.cmake \
   /usr/share/cmake-3.28/Modules/CPack.cmake \
   /usr/share/cmake-3.28/Modules/CPackComponent.cmake \
   /usr/share/cmake-3.28/Modules/CheckCXXCompilerFlag.cmake \
   /usr/share/cmake-3.28/Modules/CheckCXXSourceCompiles.cmake \
   /usr/share/cmake-3.28/Modules/CheckIncludeFileCXX.cmake \
   /usr/share/cmake-3.28/Modules/CheckLibraryExists.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/ADSP-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/ARMCC-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/ARMClang-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/AppleClang-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/Borland-DetermineCompiler.cmake \
   /usr/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompilerInternal.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/Cray-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/CrayClang-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/Embarcadero-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/Fujitsu-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/GHS-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake \
   /usr/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/GNU-FindBinUtils.cmake \
   /usr/share/cmake-3.28/Modules/Compiler/GNU.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/HP-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/IAR-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/Intel-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/MSVC-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/NVHPC-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/NVIDIA-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/OrangeC-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/PGI-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/PathScale-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/SCO-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/TI-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/Tasking-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/Watcom-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/XL-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake \
+  /usr/share/cmake-3.28/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake \
   /usr/share/cmake-3.28/Modules/FeatureSummary.cmake \
   /usr/share/cmake-3.28/Modules/FindOpenGL.cmake \
   /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake \
@@ -613,7 +670,9 @@ FLStudioEditor_autogen/timestamp: /usr/bin/cmake \
   /usr/share/cmake-3.28/Modules/Internal/CheckCompilerFlag.cmake \
   /usr/share/cmake-3.28/Modules/Internal/CheckFlagCommonConfig.cmake \
   /usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake \
+  /usr/share/cmake-3.28/Modules/Internal/FeatureTesting.cmake \
   /usr/share/cmake-3.28/Modules/MacroAddFileDependencies.cmake \
+  /usr/share/cmake-3.28/Modules/Platform/Linux-Determine-CXX.cmake \
   /usr/share/cmake-3.28/Modules/Platform/Linux-GNU-CXX.cmake \
   /usr/share/cmake-3.28/Modules/Platform/Linux-GNU.cmake \
   /usr/share/cmake-3.28/Modules/Platform/Linux-Initialize.cmake \
@@ -6868,8 +6927,6 @@ CMakeFiles/FLStudioEditor.dir/src/utils/AudioBuffer.cpp.o: /workspace/v5/src/uti
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtoolbar.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstackedwidget.h:
-
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qsplitter.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmenubar.h:
@@ -6896,8 +6953,6 @@ CMakeFiles/FLStudioEditor.dir/src/utils/AudioBuffer.cpp.o: /workspace/v5/src/uti
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/QSize:
 
-/usr/include/x86_64-linux-gnu/qt6/QtCore/QRect:
-
 /usr/include/x86_64-linux-gnu/qt6/QtCore/QList:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmessagebox.h:
@@ -6907,8 +6962,6 @@ CMakeFiles/FLStudioEditor.dir/src/utils/AudioBuffer.cpp.o: /workspace/v5/src/uti
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QHBoxLayout:
 
 /usr/include/x86_64-linux-gnu/qt6/QtGui/qguiapplication_platform.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qnativeinterface.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreapplication_platform.h:
 
@@ -6974,11 +7027,7 @@ FLStudioEditor_autogen/KM3OPOAUNE/moc_Scheduler.cpp:
 
 FLStudioEditor_autogen/JCP2AIONHY/moc_TransportWidget.cpp:
 
-FLStudioEditor_autogen/JCP2AIONHY/moc_PianoRollWidget.cpp:
-
 FLStudioEditor_autogen/JCP2AIONHY/moc_PianoKeyboard.cpp:
-
-FLStudioEditor_autogen/JCP2AIONHY/moc_MainWindow.cpp:
 
 FLStudioEditor_autogen/JCP2AIONHY/moc_InstrumentEditor.cpp:
 
@@ -6993,8 +7042,6 @@ FLStudioEditor_autogen/JCP2AIONHY/moc_InstrumentEditor.cpp:
 /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h:
-
-/usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
 /usr/include/x86_64-linux-gnu/bits/fp-logb.h:
 
@@ -7058,6 +7105,8 @@ CMakeFiles/3.28.3/CMakeSystem.cmake:
 
 /usr/share/cmake-3.28/Modules/MacroAddFileDependencies.cmake:
 
+/usr/share/cmake-3.28/Modules/Internal/FeatureTesting.cmake:
+
 /usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:
 
 /usr/share/cmake-3.28/Modules/Internal/CheckFlagCommonConfig.cmake:
@@ -7080,21 +7129,99 @@ CMakeFiles/3.28.3/CMakeSystem.cmake:
 
 /usr/share/cmake-3.28/Modules/FeatureSummary.cmake:
 
+/usr/share/cmake-3.28/Modules/Compiler/XL-CXX-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/TI-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/PGI-DetermineCompiler.cmake:
+
+FLStudioEditor_autogen/JCP2AIONHY/moc_MainWindow.cpp:
+
+/usr/share/cmake-3.28/Modules/Compiler/OrangeC-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/NVIDIA-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/MSVC-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/Intel-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/IAR-DetermineCompiler.cmake:
+
 /usr/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake:
 
+/usr/share/cmake-3.28/Modules/Compiler/GHS-DetermineCompiler.cmake:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qnativeinterface.h:
+
+/usr/share/cmake-3.28/Modules/Compiler/Fujitsu-DetermineCompiler.cmake:
+
+FLStudioEditor_autogen/JCP2AIONHY/moc_PianoRollWidget.cpp:
+
+/usr/share/cmake-3.28/Modules/Compiler/CrayClang-DetermineCompiler.cmake:
+
+/usr/include/x86_64-linux-gnu/bits/math-vector.h:
+
+/usr/share/cmake-3.28/Modules/Compiler/Cray-DetermineCompiler.cmake:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/QRect:
+
+/usr/share/cmake-3.28/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompiler.cmake:
+
 /usr/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/Borland-DetermineCompiler.cmake:
+
+/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstackedwidget.h:
+
+/usr/share/cmake-3.28/Modules/Compiler/AppleClang-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/ARMClang-DetermineCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/ADSP-DetermineCompiler.cmake:
 
 /usr/share/cmake-3.28/Modules/CheckLibraryExists.cmake:
 
 /usr/share/cmake-3.28/Modules/CPack.cmake:
 
+/usr/share/cmake-3.28/Modules/CMakeUnixFindMake.cmake:
+
+/usr/share/cmake-3.28/Modules/CMakeTestCompilerCommon.cmake:
+
+/usr/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:
+
 /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake:
+
+/usr/share/cmake-3.28/Modules/CMakeParseImplicitIncludeInfo.cmake:
 
 /usr/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake:
 
 /usr/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake:
 
+/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:
+
+/usr/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:
+
+/usr/share/cmake-3.28/Modules/CMakeCompilerIdDetection.cmake:
+
 /usr/share/cmake-3.28/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake:
+
+/usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp:
+
+/usr/share/cmake-3.28/Modules/CMakeCXXCompiler.cmake.in:
 
 /workspace/v5/include/core/Note.h:
 
@@ -7154,6 +7281,8 @@ CMakeFiles/3.28.3/CMakeSystem.cmake:
 
 /usr/include/c++/13/bits/stl_multimap.h:
 
+/usr/share/cmake-3.28/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake:
+
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow:
 
 /usr/include/x86_64-linux-gnu/bits/timex.h:
@@ -7201,6 +7330,8 @@ FLStudioEditor_autogen/KM3OPOAUNE/moc_AudioEngine.cpp:
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qpair.h:
+
+/usr/share/cmake-3.28/Modules/Compiler/PathScale-DetermineCompiler.cmake:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6MultimediaAdditionalTargetInfo.cmake:
 
@@ -7304,7 +7435,11 @@ FLStudioEditor_autogen/KM3OPOAUNE/moc_AudioEngine.cpp:
 
 /usr/include/features-time64.h:
 
+/usr/share/cmake-3.28/Modules/Compiler/NVHPC-DetermineCompiler.cmake:
+
 /usr/include/c++/13/string_view:
+
+/usr/share/cmake-3.28/Modules/CMakeParseLibraryArchitecture.cmake:
 
 /usr/include/c++/13/map:
 
@@ -7490,6 +7625,8 @@ FLStudioEditor_autogen/KM3OPOAUNE/moc_AudioEngine.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
+/usr/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompilerInternal.cmake:
+
 /usr/include/c++/13/bits/basic_ios.h:
 
 /usr/include/c++/13/bits/iterator_concepts.h:
@@ -7516,6 +7653,8 @@ FLStudioEditor_autogen/KM3OPOAUNE/moc_AudioEngine.cpp:
 
 /usr/include/c++/13/array:
 
+/usr/share/cmake-3.28/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake:
+
 /usr/include/c++/13/bits/hash_bytes.h:
 
 FLStudioEditor_autogen/KM3OPOAUNE/moc_WavExporter.cpp:
@@ -7525,6 +7664,8 @@ FLStudioEditor_autogen/KM3OPOAUNE/moc_WavExporter.cpp:
 /usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
 /usr/include/c++/13/bits/stl_raw_storage_iter.h:
+
+/usr/share/cmake-3.28/Modules/Compiler/Watcom-DetermineCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemview.h:
 
@@ -7547,6 +7688,8 @@ FLStudioEditor_autogen/KM3OPOAUNE/moc_WavExporter.cpp:
 /usr/include/c++/13/cwchar:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/messages_members.h:
+
+/usr/share/cmake-3.28/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
 
@@ -7642,6 +7785,8 @@ FLStudioEditor_autogen/KM3OPOAUNE/moc_WavExporter.cpp:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/QTimer:
 
+/usr/share/cmake-3.28/Modules/Compiler/Embarcadero-DetermineCompiler.cmake:
+
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgetsexports.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
@@ -7669,6 +7814,8 @@ FLStudioEditor_autogen/KM3OPOAUNE/moc_WavExporter.cpp:
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
 /usr/include/c++/13/bits/string_view.tcc:
+
+/usr/share/cmake-3.28/Modules/CMakeSystem.cmake.in:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qgenericatomic.h:
 
@@ -7749,6 +7896,8 @@ FLStudioEditor_autogen/KM3OPOAUNE/moc_WavExporter.cpp:
 /usr/lib/x86_64-linux-gnu/cmake/Qt6Multimedia/Qt6QGstreamerMediaPluginTargets.cmake:
 
 /usr/include/c++/13/bits/stl_algobase.h:
+
+/usr/share/cmake-3.28/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake:
 
 /usr/include/c++/13/bits/stl_bvector.h:
 
@@ -7926,11 +8075,15 @@ CMakeFiles/3.28.3/CMakeCXXCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
 
+/usr/share/cmake-3.28/Modules/CMakeDetermineCompileFeatures.cmake:
+
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/cpu_defines.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qprocessordetection.h:
+
+/usr/share/cmake-3.28/Modules/Platform/Linux-Determine-CXX.cmake:
 
 /usr/include/c++/13/cstring:
 
@@ -7988,6 +8141,8 @@ CMakeFiles/3.28.3/CMakeCXXCompiler.cmake:
 
 /workspace/v5/include/core/Track.h:
 
+/usr/share/cmake-3.28/Modules/Compiler/SCO-DetermineCompiler.cmake:
+
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qarraydatapointer.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qanystringview.h:
@@ -8035,6 +8190,8 @@ CMakeFiles/3.28.3/CMakeCXXCompiler.cmake:
 /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qaudiodevice.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QSplitter:
+
+/usr/share/cmake-3.28/Modules/Compiler/HP-CXX-DetermineCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qforeach.h:
 
@@ -8084,6 +8241,8 @@ CMakeFiles/3.28.3/CMakeCXXCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qsize.h:
 
+/usr/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:
+
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qcompare_impl.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtGui/qcursor.h:
@@ -8105,6 +8264,8 @@ CMakeFiles/3.28.3/CMakeCXXCompiler.cmake:
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qshareddata_impl.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qstring.h:
+
+/usr/share/cmake-3.28/Modules/Compiler/ARMCC-DetermineCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
@@ -8244,6 +8405,8 @@ FLStudioEditor_autogen/mocs_compilation.cpp:
 
 /usr/include/x86_64-linux-gnu/qt6/QtMultimedia/qtmultimediaexports.h:
 
+/usr/share/cmake-3.28/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake:
+
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h:
 
 /usr/include/c++/13/bits/refwrap.h:
@@ -8276,6 +8439,8 @@ FLStudioEditor_autogen/mocs_compilation.cpp:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistwidget.h:
 
+/usr/share/cmake-3.28/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake:
+
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmainwindow.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qhashfunctions.h:
@@ -8285,6 +8450,8 @@ FLStudioEditor_autogen/mocs_compilation.cpp:
 /usr/lib/x86_64-linux-gnu/cmake/Qt6DBus/Qt6DBusConfig.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qsizepolicy.h:
+
+/usr/share/cmake-3.28/Modules/Compiler/Tasking-DetermineCompiler.cmake:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qcontainerinfo.h:
 
@@ -8303,6 +8470,8 @@ FLStudioEditor_autogen/mocs_compilation.cpp:
 /usr/include/c++/13/bits/exception_defines.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgets-config.h:
+
+/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
@@ -8336,6 +8505,8 @@ FLStudioEditor_autogen/JCP2AIONHY/moc_StepSequencerWidget.cpp:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6CoreTools/Qt6CoreToolsVersionlessTargets.cmake:
 
+/usr/share/cmake-3.28/Modules/CMakeParseImplicitLinkInfo.cmake:
+
 /usr/lib/x86_64-linux-gnu/cmake/Qt6/QtPublicCMakeVersionHelpers.cmake:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
@@ -8361,6 +8532,8 @@ FLStudioEditor_autogen/JCP2AIONHY/moc_StepSequencerWidget.cpp:
 /usr/include/c++/13/bits/fs_path.h:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6Core/Qt6CoreConfigExtras.cmake:
+
+/usr/share/cmake-3.28/Modules/Compiler/GNU-FindBinUtils.cmake:
 
 /usr/include/c++/13/cwctype:
 
@@ -8400,6 +8573,8 @@ FLStudioEditor_autogen/JCP2AIONHY/moc_StepSequencerWidget.cpp:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6DBusTools/Qt6DBusToolsConfigVersion.cmake:
 
+/usr/share/cmake-3.28/Modules/CMakeFindBinUtils.cmake:
+
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qbasictimer.h:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6DBusTools/Qt6DBusToolsTargets.cmake:
@@ -8417,6 +8592,8 @@ FLStudioEditor_autogen/JCP2AIONHY/moc_StepSequencerWidget.cpp:
 /usr/lib/x86_64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsAdditionalTargetInfo.cmake:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsConfig.cmake:
+
+/usr/share/cmake-3.28/Modules/CMakeDetermineCompiler.cmake:
 
 /usr/lib/x86_64-linux-gnu/cmake/Qt6GuiTools/Qt6GuiToolsConfigVersion.cmake:
 
