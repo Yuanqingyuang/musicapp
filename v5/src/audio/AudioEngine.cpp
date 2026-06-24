@@ -34,6 +34,10 @@ bool AudioEngine::initialize() {
     }
 
     m_format = format;
+    
+    if (m_scheduler) {
+        m_scheduler->setSampleRate(format.sampleRate());
+    }
 
     m_audioSink = std::make_unique<QAudioSink>(defaultDevice, format);
     m_audioSink->setBufferSize(8192);

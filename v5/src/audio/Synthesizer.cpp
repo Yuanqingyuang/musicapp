@@ -5,7 +5,7 @@
 namespace flstudio {
 namespace audio {
 
-Synthesizer::Synthesizer() : m_nextInstrumentId(0) {
+Synthesizer::Synthesizer() : m_nextInstrumentId(-1) {
 }
 
 Synthesizer::~Synthesizer() = default;

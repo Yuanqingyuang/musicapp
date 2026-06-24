@@ -164,12 +164,12 @@ void PianoRollWidget::mousePressEvent(QMouseEvent* event) {
 
         if (x - noteX < 8 || noteX + noteWidth - x < 8) {
             m_resizing = true;
-            m_dragNoteIndex = static_cast<int>(&m_project->notes[0] - clickedNote);
+            m_dragNoteIndex = static_cast<int>(clickedNote - &m_project->notes[0]);
             m_dragStartX = x;
             m_dragStartDuration = clickedNote->durationSteps;
         } else {
             m_dragging = true;
-            m_dragNoteIndex = static_cast<int>(&m_project->notes[0] - clickedNote);
+            m_dragNoteIndex = static_cast<int>(clickedNote - &m_project->notes[0]);
             m_dragStartX = x;
             m_dragStartY = y;
             m_dragStartStep = clickedNote->startStep;
@@ -252,7 +252,7 @@ core::Note* PianoRollWidget::noteAt(int x, int y) {
 
 int PianoRollWidget::snapStep(int step) {
     int snapValue = 64 / m_snap;
-    return (step / snapValue) * snapValue;
+    return (step + snapValue / 2) / snapValue * snapValue;
 }
 
 int PianoRollWidget::pitchAt(int y) {

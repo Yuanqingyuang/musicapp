@@ -72,7 +72,7 @@ FLStudioEditor_autogen/timestamp: /usr/lib/qt6/libexec/moc
 FLStudioEditor_autogen/timestamp: /usr/lib/qt6/libexec/uic
 FLStudioEditor_autogen/timestamp: CMakeFiles/FLStudioEditor_autogen.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/workspace/v5/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target FLStudioEditor"
-	/usr/bin/cmake -E cmake_autogen /workspace/v5/build/CMakeFiles/FLStudioEditor_autogen.dir/AutogenInfo.json ""
+	/usr/bin/cmake -E cmake_autogen /workspace/v5/build/CMakeFiles/FLStudioEditor_autogen.dir/AutogenInfo.json Debug
 	/usr/bin/cmake -E touch /workspace/v5/build/FLStudioEditor_autogen/timestamp
 
 FLStudioEditor_autogen: CMakeFiles/FLStudioEditor_autogen

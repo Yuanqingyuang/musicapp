@@ -23,12 +23,20 @@ void Project::addTrack(const QString& trackName, TrackType type) {
     auto track = std::make_shared<Track>(id, trackName, type);
     
     if (type == TrackType::Step) {
-        // Assign default drum samples
-        switch (id) {
-            case 1: track->drumSample = "kick"; break;
-            case 2: track->drumSample = "snare"; break;
-            case 3: track->drumSample = "hihat"; break;
-            case 4: track->drumSample = "clap"; break;
+        int stepTrackCount = 0;
+        for (const auto& t : tracks) {
+            if (t->type == TrackType::Step) stepTrackCount++;
+        }
+        
+        switch (stepTrackCount) {
+            case 0: track->drumSample = "kick"; break;
+            case 1: track->drumSample = "snare"; break;
+            case 2: track->drumSample = "hihat"; break;
+            case 3: track->drumSample = "clap"; break;
+            case 4: track->drumSample = "tom"; break;
+            case 5: track->drumSample = "crash"; break;
+            case 6: track->drumSample = "ride"; break;
+            case 7: track->drumSample = "perc"; break;
             default: track->drumSample = "kick"; break;
         }
     }

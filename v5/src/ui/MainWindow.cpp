@@ -471,10 +471,14 @@ void MainWindow::onStop() {
 }
 
 void MainWindow::onTogglePlay() {
-    if (m_scheduler->isPlaying()) {
-        onStop();
-    } else {
+    if (!m_scheduler->isPlaying()) {
         onPlay();
+    } else if (m_scheduler->isPaused()) {
+        m_scheduler->pause();
+        m_transport->setPlaying(true);
+    } else {
+        m_scheduler->pause();
+        m_transport->setPlaying(false);
     }
 }
 
