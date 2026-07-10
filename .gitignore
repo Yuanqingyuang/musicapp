@@ -1,0 +1,38 @@
+# Build artifacts
+build/
+*.exe
+*.obj
+*.o
+*.a
+*.dll
+*.lib
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Qt
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+*.autogen
+
+# IDE
+.vscode/
+.idea/
+*.user
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Archives
+*.zip
+
+# Temp
+*.tmp
+*.bak
