@@ -5,6 +5,15 @@
 namespace flstudio {
 namespace audio {
 
+namespace {
+    std::mt19937 g_randomEngine(std::random_device{}());
+    std::uniform_real_distribution<float> g_uniformDist(-1.0f, 1.0f);
+    
+    float randomFloat() {
+        return g_uniformDist(g_randomEngine);
+    }
+}
+
 DrumSample::DrumSample() = default;
 DrumSample::~DrumSample() = default;
 
@@ -78,7 +87,7 @@ void DrumSample::generateKick() {
         
         // Add click at start
         if (i < sampleRate * 0.01f) {
-            sample += (static_cast<float>(rand()) / RAND_MAX * 2.0f - 1.0f) * std::exp(-t * 500.0f) * 0.3f;
+            sample += randomFloat() * std::exp(-t * 500.0f) * 0.3f;
         }
         
         buffer->writeSample(0, i, sample);
@@ -97,7 +106,7 @@ void DrumSample::generateSnare() {
     
     for (int i = 0; i < samples; ++i) {
         float t = static_cast<float>(i) / sampleRate;
-        float noise = static_cast<float>(rand()) / RAND_MAX * 2.0f - 1.0f;
+        float noise = randomFloat();
         float tone = std::sin(2.0f * M_PI * 180.0f * t);
         float env = std::exp(-t * 15.0f);
         float sample = (noise * 0.7f + tone * 0.3f) * env * 0.7f;
@@ -122,7 +131,7 @@ void DrumSample::generateHiHat() {
     
     for (int i = 0; i < samples; ++i) {
         float t = static_cast<float>(i) / sampleRate;
-        float noise = static_cast<float>(rand()) / RAND_MAX * 2.0f - 1.0f;
+        float noise = randomFloat();
         float filtered = noise * (1.0f - std::exp(-t * 100.0f));
         float sample = filtered * std::exp(-t * 40.0f) * 0.5f;
         
@@ -142,7 +151,7 @@ void DrumSample::generateClap() {
     
     for (int i = 0; i < samples; ++i) {
         float t = static_cast<float>(i) / sampleRate;
-        float noise = static_cast<float>(rand()) / RAND_MAX * 2.0f - 1.0f;
+        float noise = randomFloat();
         float env = 0.0f;
         
         for (int j = 0; j < 3; ++j) {
@@ -189,7 +198,7 @@ void DrumSample::generateCrash() {
     
     for (int i = 0; i < samples; ++i) {
         float t = static_cast<float>(i) / sampleRate;
-        float noise = static_cast<float>(rand()) / RAND_MAX * 2.0f - 1.0f;
+        float noise = randomFloat();
         float sample = noise * std::exp(-t * 3.0f) * 0.5f;
         
         buffer->writeSample(0, i, sample);
@@ -208,7 +217,7 @@ void DrumSample::generateRide() {
     
     for (int i = 0; i < samples; ++i) {
         float t = static_cast<float>(i) / sampleRate;
-        float noise = static_cast<float>(rand()) / RAND_MAX * 2.0f - 1.0f;
+        float noise = randomFloat();
         float tone = std::sin(2.0f * M_PI * 400.0f * t) * 0.3f;
         float sample = (noise * 0.7f + tone) * std::exp(-t * 5.0f) * 0.4f;
         

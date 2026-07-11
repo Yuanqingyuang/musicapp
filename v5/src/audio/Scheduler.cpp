@@ -188,15 +188,24 @@ void Scheduler::triggerStepNotes(int step) {
 }
 
 float getADSR(const ADSR& adsr, float time, float duration) {
-    if (time < adsr.attack) {
+    if (adsr.attack <= 0.001f) {
+        if (time < 0.001f) return 1.0f;
+    } else if (time < adsr.attack) {
         return time / adsr.attack;
-    } else if (time < adsr.attack + adsr.decay) {
-        float decayProgress = (time - adsr.attack) / adsr.decay;
+    }
+    
+    float decayStart = adsr.attack;
+    if (adsr.decay <= 0.001f) {
+        decayStart = time;
+    }
+    
+    if (time < decayStart + adsr.decay) {
+        float decayProgress = (time - decayStart) / (adsr.decay > 0.001f ? adsr.decay : 0.001f);
         return 1.0f - (1.0f - adsr.sustain) * decayProgress;
     } else if (time < duration - adsr.release) {
         return adsr.sustain;
     } else if (time < duration) {
-        float releaseProgress = (time - (duration - adsr.release)) / adsr.release;
+        float releaseProgress = (time - (duration - adsr.release)) / (adsr.release > 0.001f ? adsr.release : 0.001f);
         return adsr.sustain * (1.0f - releaseProgress);
     }
     return 0.0f;

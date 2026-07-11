@@ -357,7 +357,7 @@
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
-	"PARALLEL" : 3,
+	"PARALLEL" : 1,
 	"PARSE_CACHE_FILE" : "/workspace/v5/build/CMakeFiles/FLStudioEditor_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/usr/lib/qt6/libexec/moc",
 	"QT_UIC_EXECUTABLE" : "/usr/lib/qt6/libexec/uic",
